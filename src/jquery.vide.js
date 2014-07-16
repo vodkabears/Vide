@@ -1,6 +1,3 @@
-/*! Vide - v0.1.0 - 2014-07-14
- * https://github.com/VodkaBears/vide
- * Copyright (c) 2014 Ilya Makarov */
 ;(function ($, window, document) {
     "use strict";
 
@@ -221,13 +218,13 @@
 
         if (wrapperWidth / videoWidth > wrapperHeight / videoHeight) {
             this.video.css({
-                'width': wrapperWidth + 2, // +2 pixels to prevent empty space after transformation
-                'height': 'auto'
+                "width": wrapperWidth + 2, // +2 pixels to prevent empty space after transformation
+                "height": "auto"
             });
         } else {
             this.video.css({
-                'width': 'auto',
-                'height': wrapperHeight + 2 // +2 pixels to prevent empty space after transformation
+                "width": "auto",
+                "height": wrapperHeight + 2 // +2 pixels to prevent empty space after transformation
             });
         }
     };
@@ -294,4 +291,4 @@
             $element[pluginName](path, options);
         });
     });
-})(window["jQuery"] || window["Zepto"], window, document);
+})(jQuery || Zepto, window, document);
