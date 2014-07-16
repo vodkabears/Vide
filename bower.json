@@ -1,0 +1,21 @@
+{
+	"name": "vide",
+	"version": "0.1.0",
+	"homepage": "http://vodkabears.github.io/vide/",
+	"authors": [
+		"Ilya Makarov <dfrost.00@gmail.com>"
+	],
+	"description": "Easy as hell video background.",
+	"main": [ "dist/jquery.vide.js", "dist/jquery.vide.min.js"],
+	"keywords": [
+        "jquery",
+        "plugin",
+        "video",
+        "background",
+        "ui",
+        "zepto",
+        "responsive",
+        "declarative"
+	],
+	"license": "MIT"
+}
