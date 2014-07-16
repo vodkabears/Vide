@@ -30,7 +30,15 @@ module.exports = function(grunt) {
 
 		// Lint definitions
 		jshint: {
-			files: ["src/jquery.vide.js"],
+            gruntfile: {
+                src: "Gruntfile.js"
+            },
+            src: {
+                src: ["src/**/*.js"]
+            },
+            test: {
+                src: ["test/**/*.js"]
+            },
 			options: {
 				jshintrc: ".jshintrc"
 			}
