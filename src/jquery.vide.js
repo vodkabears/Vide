@@ -67,13 +67,13 @@
 
         switch (args[0]) {
             case "left":
-                args[0] = "100%";
+                args[0] = "0%";
                 break;
             case "center":
                 args[0] = "50%";
                 break;
             case "right":
-                args[0] = "0";
+                args[0] = "100%";
                 break;
             default:
                 break;
