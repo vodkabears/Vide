@@ -22,15 +22,40 @@
 
     var $block1, $block2;
 
-    QUnit.test("Initialization", function () {
+    QUnit.begin(function () {
         $block1 = $("#block1");
         $block2 = $("#block2");
+    });
 
+    QUnit.test("Initialization", function () {
         // js initialization
         $block2.vide("video/ocean");
 
         ok($.vide.lookup[$block1.data("vide")]);
         ok($.vide.lookup[$block2.data("vide")]);
+    });
+
+    QUnit.test("Parse path", function () {
+        equal($.vide.lookup[$block1.data("vide")].path, $block1.data("vide-bg"));
+    });
+
+    QUnit.test("Parse options", function () {
+        var video = $.vide.lookup[$block1.data("vide")].getVideoObject();
+
+        equal(video.loop, false);
+        equal(video.volume, 0.3);
+        equal(video.playbackRate, 1.25);
+        equal(video.style.left, "50%");
+        equal(video.style.top, "100%");
+    });
+
+    QUnit.asyncTest("Poster detection", function () {
+        var video = $.vide.lookup[$block1.data("vide")].getVideoObject();
+
+        setTimeout(function () {
+            ok(video.poster);
+            QUnit.start();
+        }, 500);
     });
 
     QUnit.test("Re-initialization", function () {
@@ -60,6 +85,5 @@
         equal($block1.find("video").length, 0);
         equal($block2.find("video").length, 0);
     });
-
 
 }(jQuery));
