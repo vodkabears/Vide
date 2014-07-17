@@ -28,15 +28,43 @@ module.exports = function(grunt) {
 			}
 		},
 
-		// Lint definitions
+        // Connect server definitions
+        connect: {
+            server: {
+                options: {
+                    port: 7770
+                }
+            }
+        },
+
+        // Lint definitions
 		jshint: {
-			files: ["src/jquery.vide.js"],
+            gruntfile: {
+                src: "Gruntfile.js"
+            },
+            src: {
+                src: ["src/**/*.js"]
+            },
+            test: {
+                src: ["test/**/*.js"]
+            },
 			options: {
 				jshintrc: ".jshintrc"
 			}
 		},
 
-		// Minify definitions
+        // QUnit definitions
+        qunit: {
+            all: {
+                options: {
+                    urls: ["1.11.1", "2.1.1"].map(function(version) {
+                        return "http://localhost:<%= connect.server.options.port %>/test/vide.html?jquery=" + version;
+                    })
+                }
+            }
+        },
+
+        // Minify definitions
 		uglify: {
 			my_target: {
 				src: ["dist/jquery.vide.js"],
@@ -49,10 +77,11 @@ module.exports = function(grunt) {
 	});
 
 	grunt.loadNpmTasks("grunt-contrib-concat");
-	grunt.loadNpmTasks("grunt-contrib-jshint");
-	grunt.loadNpmTasks("grunt-contrib-uglify");
+    grunt.loadNpmTasks("grunt-contrib-connect");
+    grunt.loadNpmTasks("grunt-contrib-jshint");
+    grunt.loadNpmTasks("grunt-contrib-qunit");
+    grunt.loadNpmTasks("grunt-contrib-uglify");
 
-	grunt.registerTask("default", ["jshint", "concat", "uglify"]);
-	grunt.registerTask("travis", ["jshint"]);
-
+	grunt.registerTask("default", ["connect", "jshint", "qunit", "concat", "uglify"]);
+	grunt.registerTask("test", ["connect", "jshint", "qunit"]);
 };
