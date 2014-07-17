@@ -39,7 +39,7 @@
         $block2.vide("video/ocean");
         $block1.vide("video/ocean");
 
-        var count = $.vide.lookup.filter(function(value) {
+        var count = $.vide.lookup.filter(function (value) {
             return value !== undefined;
         }).length;
 
@@ -52,7 +52,7 @@
         $.vide.lookup[$block1.data("vide")].destroy();
         $.vide.lookup[$block2.data("vide")].destroy();
 
-        var count = $.vide.lookup.filter(function(value) {
+        var count = $.vide.lookup.filter(function (value) {
             return value !== undefined;
         }).length;
 

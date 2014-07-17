@@ -1,17 +1,17 @@
 {
-	"name": "vide",
-	"title": "Vide",
-	"description": "Easy as hell video background.",
-	"keywords": [
-		"jquery",
-		"video",
-		"background",
+    "name": "vide",
+    "title": "Vide",
+    "description": "Easy as hell video background.",
+    "keywords": [
+        "jquery",
+        "video",
+        "background",
         "ui",
         "zepto",
         "responsive",
         "declarative"
-	],
-	"version": "0.1.0",
+    ],
+    "version": "0.1.0",
     "author": {
         "name": "Ilya Makarov",
         "email": "dfrost.00@gmail.com",
@@ -34,7 +34,7 @@
     "homepage": "http://vodkabears.github.io/vide/",
     "docs": "https://github.com/VodkaBears/Vide#readme",
     "download": "https://github.com/VodkaBears/Vide/archive/master.zip",
-	"dependencies": {
-		"jquery": ">=1.11.0"
-	}
+    "dependencies": {
+        "jquery": ">=1.11.0"
+    }
 }

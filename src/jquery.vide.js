@@ -1,4 +1,5 @@
-;(function ($, window, document) {
+;
+(function ($, window, document) {
     "use strict";
 
     /**
@@ -126,10 +127,10 @@
 
         this.wrapper = $("<div>");
         this.video = $("<video>" +
-                "<source src='"+ this.path + ".mp4' type='video/mp4'>" +
-                "<source src='" + this.path + ".webm' type='video/webm'>" +
-                "<source src='" + this.path + ".ogg' type='video/ogg'>" +
-                "</video>");
+            "<source src='" + this.path + ".mp4' type='video/mp4'>" +
+            "<source src='" + this.path + ".webm' type='video/webm'>" +
+            "<source src='" + this.path + ".ogg' type='video/ogg'>" +
+            "</video>");
         this.wrapper.append(this.video);
         this.element.prepend(this.wrapper);
 
@@ -144,15 +145,15 @@
 
         // Set video poster
         $.get(this.path + ".png")
-            .done(function() {
+            .done(function () {
                 that.video[0].poster = that.path + ".png";
             });
         $.get(this.path + ".jpg")
-            .done(function() {
+            .done(function () {
                 that.video[0].poster = that.path + ".jpg";
             });
         $.get(this.path + ".gif")
-            .done(function() {
+            .done(function () {
                 that.video[0].poster = that.path + ".gif";
             });
 
