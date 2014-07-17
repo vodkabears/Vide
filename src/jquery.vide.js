@@ -235,8 +235,8 @@
     Vide.prototype.destroy = function () {
         this.element.unbind(pluginName);
         this.video.unbind(pluginName);
-        delete $[pluginName].lookup[$.data(this, pluginName)];
-        $.removeData(this, pluginName);
+        delete $[pluginName].lookup[this.element.data(pluginName)];
+        this.element.removeData(pluginName);
         this.wrapper.remove();
     };
 
