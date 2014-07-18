@@ -15,7 +15,7 @@ First of all, download it from [GitHub](https://github.com/VodkaBears/Vide/archi
 `bower install vide`
 
 Add jQuery and Vide plugin before `</body>` tag or in the head section:
-```js
+```html
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="js/jquery.vide.min.js"></script>
 ```
