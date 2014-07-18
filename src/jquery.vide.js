@@ -235,7 +235,7 @@
     Vide.prototype.destroy = function () {
         this.element.unbind(pluginName);
         this.video.unbind(pluginName);
-        delete $[pluginName].lookup[this.element.data(pluginName)];
+        delete $[pluginName].lookup[this.index];
         this.element.removeData(pluginName);
         this.wrapper.remove();
     };
@@ -247,16 +247,17 @@
      * @returns {*}
      */
     $.fn[pluginName] = function (path, options) {
-        var index;
+        var instance;
         this.each(function () {
-            index = $.data(this, pluginName);
-            if (index != null) {
+            instance = $.data(this, pluginName);
+            if (instance) {
                 // destroy plugin instance if exists
-                $[pluginName].lookup[index].destroy();
+                instance.destroy();
             }
             // create plugin instance
-            index = $[pluginName].lookup.push(new Vide(this, path, options)) - 1;
-            $.data(this, pluginName, index);
+            instance = new Vide(this, path, options);
+            instance.index = $[pluginName].lookup.push(instance) - 1;
+            $.data(this, pluginName, instance);
         });
 
         return this;

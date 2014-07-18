@@ -31,16 +31,16 @@
         // js initialization
         $block2.vide("video/ocean");
 
-        ok($.vide.lookup[$block1.data("vide")]);
-        ok($.vide.lookup[$block2.data("vide")]);
+        ok($block1.data("vide"));
+        ok($block2.data("vide"));
     });
 
     QUnit.test("Parse path", function () {
-        equal($.vide.lookup[$block1.data("vide")].path, $block1.data("vide-bg"));
+        equal($block1.data("vide").path, $block1.data("vide-bg"));
     });
 
     QUnit.test("Parse options", function () {
-        var video = $.vide.lookup[$block1.data("vide")].getVideoObject();
+        var video = $block1.data("vide").getVideoObject();
 
         equal(video.loop, false);
         equal(video.volume, 0.3);
@@ -50,7 +50,7 @@
     });
 
     QUnit.asyncTest("Poster detection", function () {
-        var video = $.vide.lookup[$block1.data("vide")].getVideoObject();
+        var video = $block1.data("vide").getVideoObject();
 
         setTimeout(function () {
             ok(video.poster);
@@ -74,8 +74,8 @@
     });
 
     QUnit.test("Destroy", function () {
-        $.vide.lookup[$block1.data("vide")].destroy();
-        $.vide.lookup[$block2.data("vide")].destroy();
+        $block1.data("vide").destroy();
+        $block2.data("vide").destroy();
 
         var count = $.vide.lookup.filter(function (value) {
             return value !== undefined;

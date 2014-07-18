@@ -11,9 +11,18 @@
 </head>
 <body>
 <!-- Easy as hell -->
-<div style="width: 100%; height: 500px;" data-vide-bg="video/ocean" data-vide-options="position: 0% 50%"></div>
+<div id="block" style="width: 100%; height: 500px;" data-vide-bg="video/ocean" data-vide-options="position: 0% 50%"></div>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="../src/jquery.vide.js"></script>
+<script>
+//    $(document).ready(function () {
+//        $("#block").vide("video/ocean"); // Non declarative initialization
+//
+//        var instance = $("#block").data("vide"); // Get instance
+//        var video = instance.getVideoObject(); // Get video object
+//        instance.destroy(); // Destroy instance
+//    });
+</script>
 </body>
 </html>
