@@ -84,7 +84,7 @@ var instance = $("#yourElement").data("vide");
 instance.getVideoObject();
 
 // Resize video background.
-It calls automatically, if window resize or element(if you will use something like https://github.com/cowboy/jquery-resize).
+// It calls automatically, if window resize or element(if you will use something like https://github.com/cowboy/jquery-resize).
 instance.resize();
 
 // Destroy plugin instance
