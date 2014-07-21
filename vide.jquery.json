@@ -1,7 +1,7 @@
 {
     "name": "vide",
     "title": "Vide",
-    "description": "Easy as hell video background.",
+    "description": "Easy as hell jQuery plugin for video backgrounds.",
     "keywords": [
         "jquery",
         "video",

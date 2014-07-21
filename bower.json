@@ -5,7 +5,7 @@
     "authors": [
         "Ilya Makarov <dfrost.00@gmail.com>"
     ],
-    "description": "Easy as hell video background.",
+    "description": "Easy as hell jQuery plugin for video backgrounds.",
     "main": [ "dist/jquery.vide.js", "dist/jquery.vide.min.js"],
     "keywords": [
         "jquery",
