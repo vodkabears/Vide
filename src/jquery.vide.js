@@ -1,4 +1,4 @@
-;(function ($, window, document) {
+;(function ($, window, document, navigator) {
     "use strict";
 
     /**
@@ -318,4 +318,4 @@
             $element[pluginName](path, options);
         });
     });
-})(jQuery || Zepto, window, document);
+})(jQuery || Zepto, window, document, navigator);
