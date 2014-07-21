@@ -50,10 +50,10 @@
     });
 
     QUnit.asyncTest("Poster detection", function () {
-        var video = $block1.data("vide").getVideoObject();
+        var wrapper = $block1.data("vide").wrapper;
 
         setTimeout(function () {
-            ok(video.poster);
+            ok(wrapper.css("background-image"), "video/oceans.jpg");
             QUnit.start();
         }, 500);
     });
