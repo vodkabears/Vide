@@ -159,6 +159,7 @@
         // Set video wrapper styles
         this.wrapper.css({
             "position": "absolute",
+            "z-index": -1,
             "top": 0,
             "left": 0,
             "bottom": 0,
@@ -176,6 +177,7 @@
         this.video.css({
             "margin": "auto",
             "position": "absolute",
+            "z-index": -1,
             "top": position.y,
             "left": position.x,
             "-webkit-transform": "translate(-" + position.x + ", -" + position.y + ")",
