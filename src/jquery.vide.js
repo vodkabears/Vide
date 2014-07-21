@@ -15,13 +15,18 @@
         };
 
     /**
+     * Is iOs or Android?
+     */
+    var iOS = /iPad|iPhone|iPod/i.test(navigator.userAgent),
+        android = /Android/i.test(navigator.userAgent);
+
+    /**
      * Special plugin object for instances.
      * @type {Object}
      */
     $[pluginName] = {
         lookup: []
     };
-
 
     /**
      * Parse string with options
@@ -125,36 +130,6 @@
         var that = this;
 
         this.wrapper = $("<div>");
-        this.video = $("<video>" +
-            "<source src='" + this.path + ".mp4' type='video/mp4'>" +
-            "<source src='" + this.path + ".webm' type='video/webm'>" +
-            "<source src='" + this.path + ".ogv' type='video/ogg'>" +
-            "</video>");
-        this.wrapper.append(this.video);
-        this.element.prepend(this.wrapper);
-
-        // Set video properties
-        this.video.prop({
-            autoplay: this.settings.autoplay,
-            loop: this.settings.loop,
-            volume: this.settings.volume,
-            muted: this.settings.muted,
-            playbackRate: this.settings.playbackRate
-        });
-
-        // Set video poster
-        $.get(this.path + ".png")
-            .done(function () {
-                that.video[0].poster = that.path + ".png";
-            });
-        $.get(this.path + ".jpg")
-            .done(function () {
-                that.video[0].poster = that.path + ".jpg";
-            });
-        $.get(this.path + ".gif")
-            .done(function () {
-                that.video[0].poster = that.path + ".gif";
-            });
 
         // Set video wrapper styles
         this.wrapper.css({
@@ -164,38 +139,83 @@
             "left": 0,
             "bottom": 0,
             "right": 0,
-            "overflow": "hidden"
+            "overflow": "hidden",
+            "-webkit-background-size": "cover",
+            "-moz-background-size": "cover",
+            "-o-background-size": "cover",
+            "background-size": "cover",
+            "background-repeat": "no-repeat",
+            "background-position": "center center"
         });
+
+        // Set video poster
+        $.get(this.path + ".png")
+            .done(function () {
+                that.wrapper.css("background-image", "url(" + that.path + ".png)");
+            });
+        $.get(this.path + ".jpg")
+            .done(function () {
+                that.wrapper.css("background-image", "url(" + that.path + ".jpg)");
+            });
+        $.get(this.path + ".gif")
+            .done(function () {
+                that.wrapper.css("background-image", "url(" + that.path + ".gif)");
+            });
 
         // if parent element has a static position, make it relative
         if (this.element.css("position") === "static") {
             this.element.css("position", "relative");
         }
 
-        // Video alignment
-        var position = parsePosition(this.settings.position);
-        this.video.css({
-            "margin": "auto",
-            "position": "absolute",
-            "z-index": -1,
-            "top": position.y,
-            "left": position.x,
-            "-webkit-transform": "translate(-" + position.x + ", -" + position.y + ")",
-            "-ms-transform": "translate(-" + position.x + ", -" + position.y + ")",
-            "transform": "translate(-" + position.x + ", -" + position.y + ")"
-        });
+        this.element.prepend(this.wrapper);
 
-        // resize video, when it's loaded
-        this.resize();
-        this.video.bind("loadedmetadata." + pluginName, function () {
-            that.resize();
-        });
+        if (!iOS && !android) {
+            this.video = $("<video>" +
+                "<source src='" + this.path + ".mp4' type='video/mp4'>" +
+                "<source src='" + this.path + ".webm' type='video/webm'>" +
+                "<source src='" + this.path + ".ogv' type='video/ogg'>" +
+                "</video>");
 
-        // resize event is available only for 'window',
-        // use another code solutions to detect DOM elements resizing
-        $(this.element).bind("resize." + pluginName, function () {
-            that.resize();
-        });
+            // Disable visibility, while loading
+            this.video.css("visibility", "hidden");
+
+            // Set video properties
+            this.video.prop({
+                autoplay: this.settings.autoplay,
+                loop: this.settings.loop,
+                volume: this.settings.volume,
+                muted: this.settings.muted,
+                playbackRate: this.settings.playbackRate
+            });
+
+            // Append video
+            this.wrapper.append(this.video);
+
+            // Video alignment
+            var position = parsePosition(this.settings.position);
+            this.video.css({
+                "margin": "auto",
+                "position": "absolute",
+                "z-index": -1,
+                "top": position.y,
+                "left": position.x,
+                "-webkit-transform": "translate(-" + position.x + ", -" + position.y + ")",
+                "-ms-transform": "translate(-" + position.x + ", -" + position.y + ")",
+                "transform": "translate(-" + position.x + ", -" + position.y + ")"
+            });
+
+            // resize video, when it's loaded
+            this.video.bind("loadedmetadata." + pluginName, function () {
+                that.video.css("visibility", "visible");
+                that.resize();
+            });
+
+            // resize event is available only for 'window',
+            // use another code solutions to detect DOM elements resizing
+            $(this.element).bind("resize." + pluginName, function () {
+                that.resize();
+            });
+        }
     };
 
     /**
@@ -203,13 +223,17 @@
      * @returns {HTMLVideoElement}
      */
     Vide.prototype.getVideoObject = function () {
-        return this.video[0];
+        return this.video ? this.video[0] : null;
     };
 
     /**
      * Resize video background
      */
     Vide.prototype.resize = function () {
+        if (!this.video) {
+            return;
+        }
+
         // get native video size
         var videoHeight = this.video[0].videoHeight,
             videoWidth = this.video[0].videoWidth;
