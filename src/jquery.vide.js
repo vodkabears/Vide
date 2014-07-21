@@ -128,7 +128,7 @@
         this.video = $("<video>" +
             "<source src='" + this.path + ".mp4' type='video/mp4'>" +
             "<source src='" + this.path + ".webm' type='video/webm'>" +
-            "<source src='" + this.path + ".ogg' type='video/ogg'>" +
+            "<source src='" + this.path + ".ogv' type='video/ogg'>" +
             "</video>");
         this.wrapper.append(this.video);
         this.element.prepend(this.wrapper);
