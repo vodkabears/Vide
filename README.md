@@ -19,7 +19,7 @@ Download it from [GitHub](https://github.com/VodkaBears/Vide/archive/master.zip)
 
 Include plugin: `<script src="js/jquery.vide.min.js"></script>`
 
-Prepare your video in several formats like '.webm', '.mp4' for cross browser compability, also add a poster image:
+Prepare your video in several formats like '.webm', '.mp4' for cross browser compability, also add a poster with `.jpg`, `.png` or `.gif` extension:
 ```
 path/
 ├── to/
