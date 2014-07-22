@@ -1,3 +1,5 @@
+![Travis](https://travis-ci.org/VodkaBears/Vide.svg?branch=master)
+
 Vide
 ====
 
