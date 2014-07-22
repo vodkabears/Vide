@@ -32,7 +32,7 @@ path/
 Add `data-vide-bg` attribute with a path to the video and poster without extension, video and poster must have the same name. Add `data-vide-options` to pass vide options, if you need it. By default video is muted, looped and starts automaticly.
 ```html
 <div style="width: 1000px; height: 500px;"
-    data-vide-bg="path/to/video">
+    data-vide-bg="path/to/video" data-vide-options="loop: false, muted: false, position: 0% 0%">
 </div>
 ```
 
