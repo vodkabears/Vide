@@ -1,53 +1,42 @@
 Vide
 ====
 
-Easy as hell responsive video background.
+Easy as hell jQuery plugin for video backgrounds.
 
-Minified version size: ~3kb
+Minified version size: ~3.6kb
 
 ## Notes
 
-* All modern browsers are supported.
+* All modern desktop browsers are supported.
 * IE9+
+* iOS plays video from browser only in the native player. So video for iOS is disabled, only fullscreen poster will be.
+* Some android devices plays video, some — no, go figure. So video for android is disabled, only fullscreen poster will be.
 
 ## Instructions
 
 Download it from [GitHub](https://github.com/VodkaBears/Vide/archive/master.zip) or via Bower:
 `bower install vide`
 
-Add scripts:
-```html
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="js/jquery.vide.min.js"></script>
-```
+Include plugin: `<script src="js/jquery.vide.min.js"></script>`
 
-Prepare your video in several formats like '.webm' and 'mp4' for cross browser compability, also you can add a poster:
+Prepare your video in several formats like '.webm', '.mp4' for cross browser compability, also add a poster image:
 ```
 path/
 ├── to/
 │   ├── video.mp4
+│   ├── video.ogv
 │   ├── video.webm
-│   └── video.png
+│   └── video.jpg
 ```
 
 Add `data-vide-bg` attribute with a path to the video and poster without extension, video and poster must have the same name. Add `data-vide-options` to pass vide options, if you need it. By default video is muted, looped and starts automaticly.
 ```html
-<div style="width: 1000px; height: 500px; margin: 0;"
+<div style="width: 1000px; height: 500px;"
     data-vide-bg="path/to/video">
 </div>
 ```
-```html
-<body style="width: 100%; height: 100%; margin: 0;"
-    data-vide-bg="path/to/video" data-vide-options="muted: false, volume: 0.5">
-</body>
-```
-```html
-<div style="width: 1000px; height: 500px; margin: 0;"
-    data-vide-bg="path/to/video" data-vide-options="position: 0% 50%">
-</div>
-```
 
-Or you can initialize it with JS, in some situations it can be helpful, because vide doesn't have mutation observers, they are on you own:
+Or you can initialize it with JS, in some situations it can be helpful, because Vide doesn't have mutation observers, they are on you own:
 ```js
 $("#myBlock1").vide("path/to/video");
 $("#myBlock2").vide("path/to/video", {
@@ -84,7 +73,7 @@ var instance = $("#yourElement").data("vide");
 instance.getVideoObject();
 
 // Resize video background.
-// It calls automatically, if window resize or element(if you will use something like https://github.com/cowboy/jquery-resize).
+// It calls automatically, if window resize (or element, if you will use something like https://github.com/cowboy/jquery-resize).
 instance.resize();
 
 // Destroy plugin instance
