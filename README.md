@@ -64,7 +64,7 @@ $("#yourElement").vide({
 
 ## Methods
 
-Below a complete list of medhods:
+Below a complete list of methods:
 
 ```js
 // Get instance of the plugin
