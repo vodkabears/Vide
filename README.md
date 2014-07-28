@@ -10,8 +10,8 @@ Minified version size: ~3.6kb
 
 * All modern desktop browsers are supported.
 * IE9+
-* iOS plays video from browser only in the native player. So video for iOS is disabled, only fullscreen poster will be.
-* Some android devices plays video, some — no, go figure. So video for android is disabled, only fullscreen poster will be.
+* iOS plays video from a browser only in the native player. So video for iOS is disabled, only fullscreen poster will be.
+* Some android devices play video, some — no, go figure. So video for android is disabled, only fullscreen poster will be.
 
 ## Instructions
 
