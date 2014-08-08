@@ -19,7 +19,8 @@
             muted: true,
             loop: true,
             autoplay: true,
-            position: "50% 50%"
+            position: "50% 50%",
+            posterType: "detect"
         };
 
     /**
@@ -157,18 +158,22 @@
         });
 
         // Set video poster
-        $.get(this.path + ".png")
-            .done(function () {
-                that.wrapper.css("background-image", "url(" + that.path + ".png)");
-            });
-        $.get(this.path + ".jpg")
-            .done(function () {
-                that.wrapper.css("background-image", "url(" + that.path + ".jpg)");
-            });
-        $.get(this.path + ".gif")
-            .done(function () {
-                that.wrapper.css("background-image", "url(" + that.path + ".gif)");
-            });
+        if (this.settings.posterType === "detect") {
+            $.get(this.path + ".png")
+                .done(function () {
+                    that.wrapper.css("background-image", "url(" + that.path + ".png)");
+                });
+            $.get(this.path + ".jpg")
+                .done(function () {
+                    that.wrapper.css("background-image", "url(" + that.path + ".jpg)");
+                });
+            $.get(this.path + ".gif")
+                .done(function () {
+                    that.wrapper.css("background-image", "url(" + that.path + ".gif)");
+                });
+        } else {
+            that.wrapper.css("background-image", "url(" + that.path + "." + this.settings.posterType + ")");
+        }
 
         // if parent element has a static position, make it relative
         if (this.element.css("position") === "static") {
