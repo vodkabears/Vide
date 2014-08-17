@@ -20,7 +20,7 @@ Download it from [GitHub](https://github.com/VodkaBears/Vide/archive/master.zip)
 
 Include plugin: `<script src="js/jquery.vide.min.js"></script>`
 
-Prepare your video in several formats like '.webm', '.mp4' for cross browser compability, also add a poster with `.jpg`, `.png` or `.gif` extension:
+Prepare your video in several formats like '.webm', '.mp4' for cross browser compatability, also add a poster with `.jpg`, `.png` or `.gif` extension:
 ```
 path/
 ├── to/
@@ -30,7 +30,7 @@ path/
 │   └── video.jpg
 ```
 
-Add `data-vide-bg` attribute with a path to the video and poster without extension, video and poster must have the same name. Add `data-vide-options` to pass vide options, if you need it. By default video is muted, looped and starts automaticly.
+Add `data-vide-bg` attribute with a path to the video and poster without extension, video and poster must have the same name. Add `data-vide-options` to pass vide options, if you need it. By default video is muted, looped and starts automatically.
 ```html
 <div style="width: 1000px; height: 500px;"
     data-vide-bg="path/to/video" data-vide-options="loop: false, muted: false, position: 0% 0%">
