@@ -68,37 +68,25 @@
      * @returns {{x: *, y: *}}
      */
     var parsePosition = function (str) {
-        var args = str.split(" ");
+        var args = str.split(/\s+/),
+            x = args[0] || "50%",
+            y = args[1] || "50%";
 
-        switch (args[0]) {
-            case "left":
-                args[0] = "0%";
-                break;
-            case "center":
-                args[0] = "50%";
-                break;
-            case "right":
-                args[0] = "100%";
-                break;
-            default:
-                break;
+        for (var i = 0, len = args.length, arg; i < len; i++) {
+            arg = args[i];
+
+            if (arg === "left") {
+                x = "0%";
+            } else if (arg === "right") {
+                x = "100%";
+            } else if (arg === "top") {
+                y = "0%";
+            } else if (arg === "bottom") {
+                y = "100%";
+            }
         }
 
-        switch (args[1]) {
-            case "top":
-                args[1] = "0";
-                break;
-            case "middle":
-                args[1] = "50%";
-                break;
-            case "bottom":
-                args[1] = "100%";
-                break;
-            default:
-                break;
-        }
-
-        return { x: args[0], y: args[1] };
+        return { x: x, y: y };
     };
 
     /**
