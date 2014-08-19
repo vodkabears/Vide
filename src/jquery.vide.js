@@ -324,4 +324,4 @@
             $element[pluginName](path, options);
         });
     });
-})(jQuery || Zepto, window, document, navigator);
+})(window.jQuery, window, document, navigator);
