@@ -147,6 +147,7 @@
         this.wrapper = $("<div>");
 
         // Set video wrapper styles
+        var position = parsePosition(this.settings.position);
         this.wrapper.css({
             "position": "absolute",
             "z-index": -1,
@@ -160,7 +161,7 @@
             "-o-background-size": "cover",
             "background-size": "cover",
             "background-repeat": "no-repeat",
-            "background-position": "center center"
+            "background-position": position.x + " " + position.y
         });
 
         // Set video poster
@@ -198,7 +199,6 @@
             this.wrapper.append(this.video);
 
             // Video alignment
-            var position = parsePosition(this.settings.position);
             this.video.css({
                 "margin": "auto",
                 "position": "absolute",
