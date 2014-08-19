@@ -115,8 +115,7 @@
         this._name = pluginName;
 
         // remove extension
-        var index = path.lastIndexOf(".");
-        path = path.slice(0, index < 0 ? path.length : index);
+        path = path.replace(/\.\w*$/, "");
 
         this.settings = $.extend({}, defaults, options);
         this.path = path;
