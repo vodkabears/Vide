@@ -11,8 +11,7 @@
             muted: true,
             loop: true,
             autoplay: true,
-            position: "50% 50%",
-            posterType: "detect"
+            position: "50% 50%"
         };
 
     /**
@@ -103,6 +102,22 @@
     };
 
     /**
+     * Search poster
+     * @param path
+     * @param callback
+     */
+    var findPoster = function (path, callback) {
+        var onLoad = function () {
+            callback(this.src);
+        };
+
+        $("<img src='" + path + ".gif'>").load(onLoad);
+        $("<img src='" + path + ".jpg'>").load(onLoad);
+        $("<img src='" + path + ".jpeg'>").load(onLoad);
+        $("<img src='" + path + ".png'>").load(onLoad);
+    };
+
+    /**
      * Vide constructor
      * @param element
      * @param path
@@ -149,22 +164,9 @@
         });
 
         // Set video poster
-        if (this.settings.posterType === "detect") {
-            $.get(this.path + ".png")
-                .done(function () {
-                    that.wrapper.css("background-image", "url(" + that.path + ".png)");
-                });
-            $.get(this.path + ".jpg")
-                .done(function () {
-                    that.wrapper.css("background-image", "url(" + that.path + ".jpg)");
-                });
-            $.get(this.path + ".gif")
-                .done(function () {
-                    that.wrapper.css("background-image", "url(" + that.path + ".gif)");
-                });
-        } else {
-            that.wrapper.css("background-image", "url(" + that.path + "." + this.settings.posterType + ")");
-        }
+        findPoster(this.path, function (url) {
+            that.wrapper.css("background-image", "url(" + url + ")");
+        });
 
         // if parent element has a static position, make it relative
         if (this.element.css("position") === "static") {
