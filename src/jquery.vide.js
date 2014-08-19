@@ -46,6 +46,11 @@
             arr[i] = arr[i].split(":");
             val = arr[i][1];
 
+            // if val is an empty string, make it undefined
+            if (!val) {
+                val = undefined;
+            }
+
             // convert string value if it is like a boolean
             if (typeof val === "string" || val instanceof String) {
                 val = val === "true" || (val === "false" ? false : val);
@@ -68,13 +73,18 @@
      * @returns {{x: *, y: *}}
      */
     var parsePosition = function (str) {
-        var args = str.split(/\s+/),
+        // convert anything to the string
+        str = "" + str;
+
+        // default value is a center
+        var args = ("" + str).split(/\s+/),
             x = args[0] || "50%",
             y = args[1] || "50%";
 
         for (var i = 0, len = args.length, arg; i < len; i++) {
             arg = args[i];
 
+            // convert values
             if (arg === "left") {
                 x = "0%";
             } else if (arg === "right") {
