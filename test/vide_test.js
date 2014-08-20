@@ -44,8 +44,8 @@
 
         equal(video.loop, false);
         equal(video.volume, 0.3);
-        equal(video.playbackRate, 1.25);
-        equal(video.style.left, "50%");
+        equal(video.playbackRate, 1);
+        equal(video.style.left, "60%");
         equal(video.style.top, "100%");
     });
 
@@ -53,9 +53,16 @@
         var wrapper = $block1.data("vide").wrapper;
 
         setTimeout(function () {
-            ok(wrapper.css("background-image"), "video/oceans.jpg");
+            ok(wrapper.css("background-image").search("http://vodkabears.github.io/vide/video/ocean.jpg") > -1);
             QUnit.start();
-        }, 500);
+        }, 5000);
+    });
+
+    QUnit.test("Poster position", function () {
+        var wrapper = $block1.data("vide").wrapper,
+            video = $block1.data("vide").getVideoObject();
+
+        equal(wrapper.css("background-position"), video.style.left + " " + video.style.top);
     });
 
     QUnit.test("Re-initialization", function () {
