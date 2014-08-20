@@ -1,5 +1,5 @@
 /*
- *  Vide - v0.1.0
+ *  Vide - v0.1.1
  *  Easy as hell jQuery plugin for video backgrounds.
  *  http://vodkabears.github.io/vide/
  *
@@ -19,8 +19,7 @@
             muted: true,
             loop: true,
             autoplay: true,
-            position: "50% 50%",
-            posterType: "detect"
+            position: "50% 50%"
         };
 
     /**
@@ -55,6 +54,11 @@
             arr[i] = arr[i].split(":");
             val = arr[i][1];
 
+            // if val is an empty string, make it undefined
+            if (!val) {
+                val = undefined;
+            }
+
             // convert string value if it is like a boolean
             if (typeof val === "string" || val instanceof String) {
                 val = val === "true" || (val === "false" ? false : val);
@@ -77,37 +81,57 @@
      * @returns {{x: *, y: *}}
      */
     var parsePosition = function (str) {
-        var args = str.split(" ");
+        // convert anything to the string
+        str = "" + str;
 
-        switch (args[0]) {
-            case "left":
-                args[0] = "0%";
-                break;
-            case "center":
-                args[0] = "50%";
-                break;
-            case "right":
-                args[0] = "100%";
-                break;
-            default:
-                break;
+        // default value is a center
+        var args = ("" + str).split(/\s+/),
+            x = "50%", y = "50%";
+
+        for (var i = 0, len = args.length, arg; i < len; i++) {
+            arg = args[i];
+
+            // convert values
+            if (arg === "left") {
+                x = "0%";
+            } else if (arg === "right") {
+                x = "100%";
+            } else if (arg === "top") {
+                y = "0%";
+            } else if (arg === "bottom") {
+                y = "100%";
+            } else if (arg === "center"){
+                if (i === 0) {
+                    x = "50%";
+                } else {
+                    y = "50%";
+                }
+            } else {
+                if (i === 0) {
+                    x = arg;
+                } else {
+                    y = arg;
+                }
+            }
         }
 
-        switch (args[1]) {
-            case "top":
-                args[1] = "0";
-                break;
-            case "middle":
-                args[1] = "50%";
-                break;
-            case "bottom":
-                args[1] = "100%";
-                break;
-            default:
-                break;
-        }
+        return { x: x, y: y };
+    };
 
-        return { x: args[0], y: args[1] };
+    /**
+     * Search poster
+     * @param path
+     * @param callback
+     */
+    var findPoster = function (path, callback) {
+        var onLoad = function () {
+            callback(this.src);
+        };
+
+        $("<img src='" + path + ".gif'>").load(onLoad);
+        $("<img src='" + path + ".jpg'>").load(onLoad);
+        $("<img src='" + path + ".jpeg'>").load(onLoad);
+        $("<img src='" + path + ".png'>").load(onLoad);
     };
 
     /**
@@ -123,8 +147,7 @@
         this._name = pluginName;
 
         // remove extension
-        var index = path.lastIndexOf(".");
-        path = path.slice(0, index < 0 ? path.length : index);
+        path = path.replace(/\.\w*$/, "");
 
         this.settings = $.extend({}, defaults, options);
         this.path = path;
@@ -141,6 +164,7 @@
         this.wrapper = $("<div>");
 
         // Set video wrapper styles
+        var position = parsePosition(this.settings.position);
         this.wrapper.css({
             "position": "absolute",
             "z-index": -1,
@@ -154,26 +178,13 @@
             "-o-background-size": "cover",
             "background-size": "cover",
             "background-repeat": "no-repeat",
-            "background-position": "center center"
+            "background-position": position.x + " " + position.y
         });
 
         // Set video poster
-        if (this.settings.posterType === "detect") {
-            $.get(this.path + ".png")
-                .done(function () {
-                    that.wrapper.css("background-image", "url(" + that.path + ".png)");
-                });
-            $.get(this.path + ".jpg")
-                .done(function () {
-                    that.wrapper.css("background-image", "url(" + that.path + ".jpg)");
-                });
-            $.get(this.path + ".gif")
-                .done(function () {
-                    that.wrapper.css("background-image", "url(" + that.path + ".gif)");
-                });
-        } else {
-            that.wrapper.css("background-image", "url(" + that.path + "." + this.settings.posterType + ")");
-        }
+        findPoster(this.path, function (url) {
+            that.wrapper.css("background-image", "url(" + url + ")");
+        });
 
         // if parent element has a static position, make it relative
         if (this.element.css("position") === "static") {
@@ -205,7 +216,6 @@
             this.wrapper.append(this.video);
 
             // Video alignment
-            var position = parsePosition(this.settings.position);
             this.video.css({
                 "margin": "auto",
                 "position": "absolute",
@@ -273,7 +283,10 @@
      */
     Vide.prototype.destroy = function () {
         this.element.unbind(pluginName);
-        this.video.unbind(pluginName);
+        if (this.video) {
+            this.video.unbind(pluginName);
+        }
+        
         delete $[pluginName].lookup[this.index];
         this.element.removeData(pluginName);
         this.wrapper.remove();
@@ -331,4 +344,4 @@
             $element[pluginName](path, options);
         });
     });
-})(jQuery || Zepto, window, document, navigator);
+})(window.jQuery, window, document, navigator);
