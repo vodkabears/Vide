@@ -78,8 +78,7 @@
 
         // default value is a center
         var args = ("" + str).split(/\s+/),
-            x = args[0] || "50%",
-            y = args[1] || "50%";
+            x = "50%", y = "50%";
 
         for (var i = 0, len = args.length, arg; i < len; i++) {
             arg = args[i];
@@ -93,6 +92,18 @@
                 y = "0%";
             } else if (arg === "bottom") {
                 y = "100%";
+            } else if (arg === "center"){
+                if (i === 0) {
+                    x = "50%";
+                } else {
+                    y = "50%";
+                }
+            } else {
+                if (i === 0) {
+                    x = arg;
+                } else {
+                    y = arg;
+                }
             }
         }
 
