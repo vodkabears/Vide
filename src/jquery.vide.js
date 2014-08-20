@@ -264,7 +264,10 @@
      */
     Vide.prototype.destroy = function () {
         this.element.unbind(pluginName);
-        this.video.unbind(pluginName);
+        if (this.video) {
+            this.video.unbind(pluginName);
+        }
+        
         delete $[pluginName].lookup[this.index];
         this.element.removeData(pluginName);
         this.wrapper.remove();
