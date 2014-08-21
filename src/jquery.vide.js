@@ -77,7 +77,7 @@
         str = "" + str;
 
         // default value is a center
-        var args = ("" + str).split(/\s+/),
+        var args = str.split(/\s+/),
             x = "50%", y = "50%";
 
         for (var i = 0, len = args.length, arg; i < len; i++) {
