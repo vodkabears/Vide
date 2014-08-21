@@ -87,7 +87,7 @@ Vide plugin resizes, if window resizes. If you will use something like https://g
 
 ## License
 
-```txt
+```
 The MIT License (MIT)
 
 Copyright (c) 2014 Ilya Makarov, http://vodkabears.github.io
