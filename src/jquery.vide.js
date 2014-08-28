@@ -11,7 +11,8 @@
             muted: true,
             loop: true,
             autoplay: true,
-            position: "50% 50%"
+            position: "50% 50%",
+            posterType: "detect"
         };
 
     /**
@@ -174,9 +175,13 @@
         });
 
         // Set video poster
-        findPoster(this.path, function (url) {
-            that.wrapper.css("background-image", "url(" + url + ")");
-        });
+        if (this.settings.posterType === "detect") {
+            findPoster(this.path, function (url) {
+                that.wrapper.css("background-image", "url(" + url + ")");
+            });
+        } else {
+            this.wrapper.css("background-image", "url(" + this.path + "." + this.settings.posterType + ")");
+        }
 
         // if parent element has a static position, make it relative
         if (this.element.css("position") === "static") {
