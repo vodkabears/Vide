@@ -10,8 +10,8 @@ Minified version size: ~3.6kb
 
 * All modern desktop browsers are supported.
 * IE9+
-* iOS plays video from a browser only in the native player. So video for iOS is disabled, only fullscreen poster will be.
-* Some android devices play video, some — no, go figure. So video for android is disabled, only fullscreen poster will be.
+* iOS plays video from a browser only in the native player. So video for iOS is disabled, only fullscreen poster will be used.
+* Some android devices play video, some not — go figure. So video for android is disabled, only fullscreen poster will be used.
 
 ## Instructions
 
@@ -37,7 +37,7 @@ Add `data-vide-bg` attribute with a path to the video and poster without extensi
 </div>
 ```
 
-Or you can initialize it with JS, in some situations it can be helpful, because Vide doesn't have mutation observers, they are on you own:
+In some situations it can be helpful to initialize it with JS because Vide doesn't have mutation observers:
 ```js
 $("#myBlock1").vide("path/to/video");
 $("#myBlock2").vide("path/to/video", {
@@ -49,7 +49,7 @@ Easy as hell.
 
 ## Options
 
-Below a complete list of options and matching default values:
+Below is a complete list of options and matching default values:
 
 ```js
 $("#yourElement").vide({
@@ -64,7 +64,7 @@ $("#yourElement").vide({
 
 ## Methods
 
-Below a complete list of methods:
+Below is a complete list of methods:
 
 ```js
 // Get instance of the plugin
@@ -83,7 +83,7 @@ instance.destroy();
 
 ## Resizing
 
-Vide plugin resizes, if window resizes. If you will use something like https://github.com/cowboy/jquery-resize, it will resize automatically, when element will resize. Or simply use `resize()` method whenever you need.
+The Vide plugin resizes if the window resizes. If you will use something like https://github.com/cowboy/jquery-resize, it will resize automatically when the container resizes. Or simply use `resize()` method whenever you need.
 
 ## License
 
