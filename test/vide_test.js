@@ -29,7 +29,9 @@
 
     QUnit.test("Initialization", function () {
         // js initialization
-        $block2.vide("video/ocean");
+        $block2.vide("video/ocean", {
+            posterType: "gif"
+        });
 
         ok($block1.data("vide"));
         ok($block2.data("vide"));
@@ -50,10 +52,13 @@
     });
 
     QUnit.asyncTest("Poster detection", function () {
-        var wrapper = $block1.data("vide").wrapper;
+        var wrapper1 = $block1.data("vide").wrapper,
+            wrapper2 = $block2.data("vide").wrapper;
+
+        ok(wrapper2.css("background-image").search("video/ocean.gif") > -1);
 
         setTimeout(function () {
-            ok(wrapper.css("background-image").search("http://vodkabears.github.io/vide/video/ocean.jpg") > -1);
+            ok(wrapper1.css("background-image").search("http://vodkabears.github.io/vide/video/ocean.jpg") > -1);
             QUnit.start();
         }, 5000);
     });
