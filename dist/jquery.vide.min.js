@@ -1,5 +1,5 @@
 /*
- *  Vide - v0.1.1
+ *  Vide - v0.1.2
  *  Easy as hell jQuery plugin for video backgrounds.
  *  http://vodkabears.github.io/vide/
  *
