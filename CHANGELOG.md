@@ -1,3 +1,6 @@
+### 0.1.2
+* Restored `posterType` option to specify poster image type.
+
 ### 0.1.1
 * Support of absolute URLs (#10).
 * Fixed the CORS issue (#11).
