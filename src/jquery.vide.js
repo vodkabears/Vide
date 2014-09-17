@@ -121,10 +121,14 @@
             callback(this.src);
         };
 
-        $("<img src='" + path + ".gif'>").load(onLoad);
-        $("<img src='" + path + ".jpg'>").load(onLoad);
-        $("<img src='" + path + ".jpeg'>").load(onLoad);
-        $("<img src='" + path + ".png'>").load(onLoad);
+        if(typeof path === "object" && path.poster){
+            callback(path.poster);
+        } else {
+            $("<img src='" + path + ".gif'>").load(onLoad);
+            $("<img src='" + path + ".jpg'>").load(onLoad);
+            $("<img src='" + path + ".jpeg'>").load(onLoad);
+            $("<img src='" + path + ".png'>").load(onLoad);
+        }
     };
 
     /**
@@ -140,7 +144,9 @@
         this._name = pluginName;
 
         // remove extension
-        path = path.replace(/\.\w*$/, "");
+        if(typeof path === "string"){
+            path = path.replace(/\.\w*$/, "");
+        }
 
         this.settings = $.extend({}, defaults, options);
         this.path = path;
@@ -191,11 +197,26 @@
         this.element.prepend(this.wrapper);
 
         if (!iOS && !android) {
-            this.video = $("<video>" +
-                "<source src='" + this.path + ".mp4' type='video/mp4'>" +
-                "<source src='" + this.path + ".webm' type='video/webm'>" +
-                "<source src='" + this.path + ".ogv' type='video/ogg'>" +
-                "</video>");
+
+            if(typeof this.path === "object"){
+                var sources = "";
+                if(this.path.mp4) {
+                    sources += "<source src='" + this.path.mp4 + "' type='video/mp4'>";
+                }
+                if(this.path.webm) {
+                    sources += "<source src='" + this.path.webm + "' type='video/webm'>";
+                }
+                if(this.path.ogv) {
+                    sources += "<source src='" + this.path.ogv + "' type='video/ogv'>";
+                }
+                this.video = $("<video>" + sources + "</video>");
+            } else {
+                this.video = $("<video>" +
+                    "<source src='" + this.path + ".mp4' type='video/mp4'>" +
+                    "<source src='" + this.path + ".webm' type='video/webm'>" +
+                    "<source src='" + this.path + ".ogv' type='video/ogg'>" +
+                    "</video>");
+            }
 
             // Disable visibility, while loading
             this.video.css("visibility", "hidden");
