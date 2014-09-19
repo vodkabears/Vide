@@ -58,7 +58,7 @@ $("#yourElement").vide({
     muted: true,
     loop: true,
     autoplay: true,
-    position: "50% 50%" // Similar to the CSS `background-position` property.
+    position: "50% 50%", // Similar to the CSS `background-position` property.
     posterType: "detect" // Poster image type. The default is "detect", which means auto-detection.
 });
 ```
