@@ -148,7 +148,13 @@
         this._name = pluginName;
 
         // remove extension
-        path = path.replace(/\.\w*$/, "");
+        if(typeof path === "string"){
+            path = path.replace(/\.\w*$/, "");
+        } else if(typeof path === "object") {
+            for(var i in path){
+                path[i] = path[i].replace(/\.\w*$/, "");
+            }
+        }
 
         this.settings = $.extend({}, defaults, options);
         this.path = path;
@@ -182,13 +188,27 @@
             "background-position": position.x + " " + position.y
         });
 
+        // Get poster path
+        var poster = this.path;
+        if(typeof this.path === "object"){
+            if(this.path.poster){
+                poster = this.path.poster;
+            } else {
+                if(this.path.mp4) {
+                    poster = this.path.mp4;
+                } else if(this.path.webm) {
+                    poster = this.path.webm;
+                } else if(this.path.ogv) {
+                    poster = this.path.webm;
+                }
+            } 
+        }
+
         // Set video poster
         if (this.settings.posterType === "detect") {
-            findPoster(this.path, function (url) {
-                that.wrapper.css("background-image", "url(" + url + ")");
-            });
+            findPoster(poster, $.proxy(this.setPoster, this));
         } else {
-            this.wrapper.css("background-image", "url(" + this.path + "." + this.settings.posterType + ")");
+            this.setPoster(poster + "." + this.settings.posterType);
         }
 
         // if parent element has a static position, make it relative
@@ -199,11 +219,26 @@
         this.element.prepend(this.wrapper);
 
         if (!iOS && !android) {
-            this.video = $("<video>" +
-                "<source src='" + this.path + ".mp4' type='video/mp4'>" +
-                "<source src='" + this.path + ".webm' type='video/webm'>" +
-                "<source src='" + this.path + ".ogv' type='video/ogg'>" +
-                "</video>");
+
+            if(typeof this.path === "object"){
+                var sources = "";
+                if(this.path.mp4) {
+                    sources += "<source src='" + this.path.mp4 + ".mp4' type='video/mp4'>";
+                }
+                if(this.path.webm) {
+                    sources += "<source src='" + this.path.webm + ".webm' type='video/webm'>";
+                }
+                if(this.path.ogv) {
+                    sources += "<source src='" + this.path.ogv + ".ogv' type='video/ogv'>";
+                }
+                this.video = $("<video>" + sources + "</video>");
+            } else {
+                this.video = $("<video>" +
+                    "<source src='" + this.path + ".mp4' type='video/mp4'>" +
+                    "<source src='" + this.path + ".webm' type='video/webm'>" +
+                    "<source src='" + this.path + ".ogv' type='video/ogg'>" +
+                    "</video>");
+            }
 
             // Disable visibility, while loading
             this.video.css("visibility", "hidden");
@@ -244,6 +279,14 @@
                 that.resize();
             });
         }
+    };
+
+
+    /**
+     * Set Poster for the video
+     */
+    Vide.prototype.setPoster = function (url) {
+        this.wrapper.css("background-image", "url(" + url + ")");
     };
 
     /**
