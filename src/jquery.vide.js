@@ -12,7 +12,8 @@
             loop: true,
             autoplay: true,
             position: "50% 50%",
-            posterType: "detect"
+            posterType: "detect",
+            autoresize: true
         };
 
     /**
@@ -272,7 +273,9 @@
             // resize event is available only for 'window',
             // use another code solutions to detect DOM elements resizing
             $(this.element).bind("resize." + pluginName, function () {
-                that.resize();
+                if (that.settings.autoresize) {
+                    that.resize();
+                }
             });
         }
     };
@@ -356,7 +359,7 @@
         $(window).bind("resize." + pluginName, function () {
             for (var len = $[pluginName].lookup.length, instance, i = 0; i < len; i++) {
                 instance = $[pluginName].lookup[i];
-                if (instance) {
+                if (instance && instance.settings.autoresize) {
                     instance.resize();
                 }
             }
