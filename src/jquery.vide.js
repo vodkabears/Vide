@@ -140,11 +140,13 @@
         this._name = pluginName;
 
         // remove extension
-        if(typeof path === "string"){
+        if (typeof path === "string") {
             path = path.replace(/\.\w*$/, "");
-        } else if(typeof path === "object") {
-            for(var i in path){
-                path[i] = path[i].replace(/\.\w*$/, "");
+        } else if (typeof path === "object") {
+            for (var i in path) {
+                if (path.hasOwnProperty(i)) {
+                    path[i] = path[i].replace(/\.\w*$/, "");
+                }
             }
         }
 
@@ -182,25 +184,27 @@
 
         // Get poster path
         var poster = this.path;
-        if(typeof this.path === "object"){
-            if(this.path.poster){
+        if (typeof this.path === "object") {
+            if (this.path.poster) {
                 poster = this.path.poster;
             } else {
-                if(this.path.mp4) {
+                if (this.path.mp4) {
                     poster = this.path.mp4;
-                } else if(this.path.webm) {
+                } else if (this.path.webm) {
                     poster = this.path.webm;
-                } else if(this.path.ogv) {
+                } else if (this.path.ogv) {
                     poster = this.path.webm;
                 }
-            } 
+            }
         }
 
         // Set video poster
         if (this.settings.posterType === "detect") {
-            findPoster(poster, $.proxy(this.setPoster, this));
+            findPoster(poster, function (url) {
+                that.wrapper.css("background-image", "url(" + url + ")");
+            });
         } else {
-            this.setPoster(poster + "." + this.settings.posterType);
+            this.wrapper.css("background-image", "url(" + poster + "." + this.settings.posterType + ")");
         }
 
         // if parent element has a static position, make it relative
@@ -212,9 +216,9 @@
 
         if (!iOS && !android) {
 
-            if(typeof this.path === "object"){
+            if (typeof this.path === "object"){
                 var sources = "";
-                if(this.path.mp4) {
+                if (this.path.mp4) {
                     sources += "<source src='" + this.path.mp4 + ".mp4' type='video/mp4'>";
                 }
                 if(this.path.webm) {
@@ -271,14 +275,6 @@
                 that.resize();
             });
         }
-    };
-
-
-    /**
-     * Set Poster for the video
-     */
-    Vide.prototype.setPoster = function (url) {
-        this.wrapper.css("background-image", "url(" + url + ")");
     };
 
     /**
