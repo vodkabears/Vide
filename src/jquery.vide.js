@@ -12,8 +12,7 @@
             loop: true,
             autoplay: true,
             position: "50% 50%",
-            posterType: "detect",
-            autoresize: true
+            posterType: "detect"
         };
 
     /**
@@ -194,7 +193,7 @@
                 } else if (this.path.webm) {
                     poster = this.path.webm;
                 } else if (this.path.ogv) {
-                    poster = this.path.webm;
+                    poster = this.path.ogv;
                 }
             }
         }
@@ -273,9 +272,7 @@
             // resize event is available only for 'window',
             // use another code solutions to detect DOM elements resizing
             $(this.element).bind("resize." + pluginName, function () {
-                if (that.settings.autoresize) {
-                    that.resize();
-                }
+                that.resize();
             });
         }
     };
@@ -359,7 +356,7 @@
         $(window).bind("resize." + pluginName, function () {
             for (var len = $[pluginName].lookup.length, instance, i = 0; i < len; i++) {
                 instance = $[pluginName].lookup[i];
-                if (instance && instance.settings.autoresize) {
+                if (instance) {
                     instance.resize();
                 }
             }
