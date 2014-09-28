@@ -54,12 +54,12 @@
             }
 
             // convert string value if it is like a boolean
-            if (typeof val === "string" || val instanceof String) {
+            if (typeof val === "string") {
                 val = val === "true" || (val === "false" ? false : val);
             }
 
             // convert string value if it is like a number
-            if (typeof val === "string" || val instanceof String) {
+            if (typeof val === "string") {
                 val = !isNaN(val) ? +val : val;
             }
 
@@ -217,7 +217,7 @@
 
         if (!iOS && !android) {
 
-            if (typeof this.path === "object"){
+            if (typeof this.path === "object") {
                 var sources = "";
                 if (this.path.mp4) {
                     sources += "<source src='" + this.path.mp4 + ".mp4' type='video/mp4'>";
