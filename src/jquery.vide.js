@@ -35,13 +35,17 @@
      * @returns {Object}
      */
     var parseOptions = function (str) {
-        var obj = {}, clearedStr, arr;
+        var obj = {}, arr;
 
-        // remove spaces before and after delimiters
-        clearedStr = str.replace(/\s*:\s*/g, ":").replace(/\s*,\s*/g, ",");
+        // check if it is possible to create a hash table
+        if (str.search(":") === -1) {
+            return str;
+        }
+
+        // remove spaces around delimiters and split
+        arr = str.replace(/\s*:\s*/g, ":").replace(/\s*,\s*/g, ",").split(",");
 
         // parse string
-        arr = clearedStr.split(",");
         var i, len, val;
         for (i = 0, len = arr.length; i < len; i++) {
             arr[i] = arr[i].split(":");
@@ -138,6 +142,18 @@
         this.element = $(element);
         this._defaults = defaults;
         this._name = pluginName;
+
+        // parse path
+        if (typeof path === "string") {
+            path = parseOptions(path);
+        }
+
+        // parse options
+        if (!options) {
+            options = {};
+        } else if (typeof options === "string") {
+            options = parseOptions(options);
+        }
 
         // remove extension
         if (typeof path === "string") {
@@ -370,12 +386,6 @@
             var $element = $(element),
                 options = $element.data(pluginName + "-options"),
                 path = $element.data(pluginName + "-bg");
-
-            if (!options) {
-                options = {};
-            } else {
-                options = parseOptions(options);
-            }
 
             $element[pluginName](path, options);
         });
