@@ -52,8 +52,6 @@
             prop = arr[i].substring(0, delimiterIndex);
             val = arr[i].substring(delimiterIndex + 1);
 
-            console.log(prop + " : " + val);
-
             // if val is an empty string, make it undefined
             if (!val) {
                 val = undefined;
