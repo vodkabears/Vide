@@ -71,7 +71,7 @@
         }
 
         // if nothing is parsed
-        if (!val) {
+        if (prop == null && val == null) {
             return str;
         }
 
