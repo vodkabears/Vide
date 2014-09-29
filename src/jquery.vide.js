@@ -37,19 +37,22 @@
     var parseOptions = function (str) {
         var obj = {}, arr;
 
-        // check if it is possible to create a hash table
-        if (str.search(":") === -1) {
-            return str;
-        }
-
         // remove spaces around delimiters and split
         arr = str.replace(/\s*:\s*/g, ":").replace(/\s*,\s*/g, ",").split(",");
 
         // parse string
-        var i, len, val;
+        var i, len, prop, val, delimiterIndex;
         for (i = 0, len = arr.length; i < len; i++) {
-            arr[i] = arr[i].split(":");
-            val = arr[i][1];
+            // Ignore urls
+            if (arr[i].replace(/^(http|https|ftp):\/\//, "").search(":") === -1) {
+                break;
+            }
+
+            delimiterIndex = arr[i].indexOf(":");
+            prop = arr[i].substring(0, delimiterIndex);
+            val = arr[i].substring(delimiterIndex + 1);
+
+            console.log(prop + " : " + val);
 
             // if val is an empty string, make it undefined
             if (!val) {
@@ -66,7 +69,12 @@
                 val = !isNaN(val) ? +val : val;
             }
 
-            obj[arr[i][0]] = val;
+            obj[prop] = val;
+        }
+
+        // if nothing is parsed
+        if (!val) {
+            return str;
         }
 
         return obj;
