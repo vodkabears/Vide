@@ -48,11 +48,11 @@
         ok($block5.data("vide"));
     });
 
-    QUnit.test("Parse path", function () {
+    QUnit.test("Parsing of the path", function () {
         equal($block1.data("vide").path, $block1.data("vide-bg"));
     });
 
-    QUnit.test("Parsing of a path with multiple names", function () {
+    QUnit.test("Parsing of the path with multiple names", function () {
         deepEqual($block3.data("vide").path, {
             mp4: "http://vodkabears.github.io/vide/video/ocean",
             webm: "video/ocean",
@@ -61,7 +61,7 @@
         });
     });
 
-    QUnit.test("Parse options", function () {
+    QUnit.test("Parsing of the options", function () {
         var inst = $block1.data("vide"),
             video = $block1.data("vide").getVideoObject();
 
@@ -77,7 +77,7 @@
         equal(video.style.top, "100%");
     });
 
-    QUnit.test("Passing JSON with a data attribute", function () {
+    QUnit.test("Passing JSON with the data attribute", function () {
         var inst = $block4.data("vide");
 
         deepEqual(inst.path, {
@@ -148,7 +148,36 @@
         equal(count, 5);
     });
 
-    QUnit.test("Destroy", function () {
+    QUnit.test("getVideoObject() method", function () {
+        ok($block1.data("vide").getVideoObject());
+        ok($block2.data("vide").getVideoObject());
+        ok($block3.data("vide").getVideoObject());
+        ok($block4.data("vide").getVideoObject());
+        ok($block5.data("vide").getVideoObject());
+    });
+
+    QUnit.test("resize() method", function () {
+        var inst = $block1.data("vide"),
+            videoHeight = inst.video[0].videoHeight,
+            videoWidth = inst.video[0].videoWidth,
+            wrapperHeight = inst.wrapper.height(),
+            wrapperWidth = inst.wrapper.width();
+
+        inst.video[0].style.width = "300px";
+        inst.video[0].style.height = "300px";
+
+        inst.resize();
+
+        if (wrapperWidth / videoWidth > wrapperHeight / videoHeight) {
+            equal(inst.video[0].style.width, wrapperWidth + 2 + "px");
+            equal(inst.video[0].style.height, "auto");
+        } else {
+            equal(inst.video[0].style.width, "auto");
+            equal(inst.video[0].style.height, wrapperHeight + 2 + "px");
+        }
+    });
+
+    QUnit.test("destroy() method", function () {
         $block1.data("vide").destroy();
         $block2.data("vide").destroy();
         $block3.data("vide").destroy();
