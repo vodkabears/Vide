@@ -109,11 +109,16 @@
     QUnit.asyncTest("Poster detection", function () {
         var inst1 = $block1.data("vide"),
             inst2 = $block2.data("vide"),
+            inst3 = $block3.data("vide"),
             wrapper1 = inst1.wrapper,
-            wrapper2 = inst2.wrapper;
+            wrapper2 = inst2.wrapper,
+            wrapper3 = inst3.wrapper;
 
         equal(inst2.settings.posterType, "gif");
         ok(wrapper2.css("background-image").search("video/ocean.gif") > -1);
+
+        equal(inst3.settings.posterType, "none");
+        equal(wrapper3.css("background-image"), "none");
 
         equal(inst1.settings.posterType, "detect");
         setTimeout(function () {

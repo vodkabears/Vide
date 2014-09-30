@@ -225,7 +225,7 @@
             findPoster(poster, function (url) {
                 that.wrapper.css("background-image", "url(" + url + ")");
             });
-        } else {
+        } else if (this.settings.posterType !== "none") {
             this.wrapper.css("background-image", "url(" + poster + "." + this.settings.posterType + ")");
         }
 
