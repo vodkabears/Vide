@@ -3,6 +3,7 @@
 
     /**
      * Vide settings
+     * @private
      */
     var pluginName = "vide",
         defaults = {
@@ -17,6 +18,7 @@
 
     /**
      * Is iOs or Android?
+     * @private
      */
     var iOS = /iPad|iPhone|iPod/i.test(navigator.userAgent),
         android = /Android/i.test(navigator.userAgent);
@@ -24,6 +26,7 @@
     /**
      * Special plugin object for instances.
      * @type {Object}
+     * @public
      */
     $[pluginName] = {
         lookup: []
@@ -31,8 +34,9 @@
 
     /**
      * Parse string with options
-     * @param str
-     * @returns {Object}
+     * @param {String} str
+     * @returns {Object|String}
+     * @private
      */
     var parseOptions = function (str) {
         var obj = {}, arr;
@@ -80,8 +84,9 @@
 
     /**
      * Parse position option
-     * @param str
-     * @returns {{x: *, y: *}}
+     * @param {String} str
+     * @returns {Object}
+     * @private
      */
     var parsePosition = function (str) {
         // convert anything to the string
@@ -123,8 +128,9 @@
 
     /**
      * Search poster
-     * @param path
-     * @param callback
+     * @param {String} path
+     * @param {Function} callback
+     * @private
      */
     var findPoster = function (path, callback) {
         var onLoad = function () {
@@ -139,9 +145,9 @@
 
     /**
      * Vide constructor
-     * @param element
-     * @param path
-     * @param options
+     * @param {HTMLElement} element
+     * @param {Object|String} path
+     * @param {Object|String} options
      * @constructor
      */
     function Vide(element, path, options) {
@@ -180,6 +186,7 @@
 
     /**
      * Initialization
+     * @public
      */
     Vide.prototype.init = function () {
         var that = this;
@@ -301,7 +308,8 @@
 
     /**
      * Get video element of the background
-     * @returns {HTMLVideoElement}
+     * @returns {HTMLVideoElement|null}
+     * @public
      */
     Vide.prototype.getVideoObject = function () {
         return this.video ? this.video[0] : null;
@@ -309,6 +317,7 @@
 
     /**
      * Resize video background
+     * @public
      */
     Vide.prototype.resize = function () {
         if (!this.video) {
@@ -338,6 +347,7 @@
 
     /**
      * Destroy video background
+     * @public
      */
     Vide.prototype.destroy = function () {
         this.element.unbind(pluginName);
@@ -352,9 +362,10 @@
 
     /**
      * Plugin constructor
-     * @param path
-     * @param options
-     * @returns {*}
+     * @param {Object|String} path
+     * @param {Object|String} options
+     * @returns {JQuery}
+     * @constructor
      */
     $.fn[pluginName] = function (path, options) {
         var instance;
