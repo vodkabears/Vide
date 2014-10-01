@@ -1,3 +1,12 @@
+### 0.1.3
+* Path argument can receive list of sources.
+* Strings with options and pathes can be passed to the constructor directly.
+* Updated README.
+* Updated JSDoc.
+* Updated tests.
+* Updated examples.
+* Other small fixes and optimizations.
+
 ### 0.1.2
 * Restored `posterType` option to specify poster image type.
 
