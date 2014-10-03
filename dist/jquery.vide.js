@@ -1,5 +1,5 @@
 /*
- *  Vide - v0.1.2
+ *  Vide - v0.1.3
  *  Easy as hell jQuery plugin for video backgrounds.
  *  http://vodkabears.github.io/vide/
  *
@@ -11,6 +11,7 @@
 
     /**
      * Vide settings
+     * @private
      */
     var pluginName = "vide",
         defaults = {
@@ -25,6 +26,7 @@
 
     /**
      * Is iOs or Android?
+     * @private
      */
     var iOS = /iPad|iPhone|iPod/i.test(navigator.userAgent),
         android = /Android/i.test(navigator.userAgent);
@@ -32,6 +34,7 @@
     /**
      * Special plugin object for instances.
      * @type {Object}
+     * @public
      */
     $[pluginName] = {
         lookup: []
@@ -39,21 +42,27 @@
 
     /**
      * Parse string with options
-     * @param str
-     * @returns {Object}
+     * @param {String} str
+     * @returns {Object|String}
+     * @private
      */
     var parseOptions = function (str) {
-        var obj = {}, clearedStr, arr;
+        var obj = {}, arr;
 
-        // remove spaces before and after delimiters
-        clearedStr = str.replace(/\s*:\s*/g, ":").replace(/\s*,\s*/g, ",");
+        // remove spaces around delimiters and split
+        arr = str.replace(/\s*:\s*/g, ":").replace(/\s*,\s*/g, ",").split(",");
 
         // parse string
-        arr = clearedStr.split(",");
-        var i, len, val;
+        var i, len, prop, val, delimiterIndex;
         for (i = 0, len = arr.length; i < len; i++) {
-            arr[i] = arr[i].split(":");
-            val = arr[i][1];
+            // Ignore urls
+            if (arr[i].replace(/^(http|https|ftp):\/\//, "").search(":") === -1) {
+                break;
+            }
+
+            delimiterIndex = arr[i].indexOf(":");
+            prop = arr[i].substring(0, delimiterIndex);
+            val = arr[i].substring(delimiterIndex + 1);
 
             // if val is an empty string, make it undefined
             if (!val) {
@@ -61,16 +70,21 @@
             }
 
             // convert string value if it is like a boolean
-            if (typeof val === "string" || val instanceof String) {
+            if (typeof val === "string") {
                 val = val === "true" || (val === "false" ? false : val);
             }
 
             // convert string value if it is like a number
-            if (typeof val === "string" || val instanceof String) {
+            if (typeof val === "string") {
                 val = !isNaN(val) ? +val : val;
             }
 
-            obj[arr[i][0]] = val;
+            obj[prop] = val;
+        }
+
+        // if nothing is parsed
+        if (prop == null && val == null) {
+            return str;
         }
 
         return obj;
@@ -78,8 +92,9 @@
 
     /**
      * Parse position option
-     * @param str
-     * @returns {{x: *, y: *}}
+     * @param {String} str
+     * @returns {Object}
+     * @private
      */
     var parsePosition = function (str) {
         // convert anything to the string
@@ -121,8 +136,9 @@
 
     /**
      * Search poster
-     * @param path
-     * @param callback
+     * @param {String} path
+     * @param {Function} callback
+     * @private
      */
     var findPoster = function (path, callback) {
         var onLoad = function () {
@@ -137,9 +153,9 @@
 
     /**
      * Vide constructor
-     * @param element
-     * @param path
-     * @param options
+     * @param {HTMLElement} element
+     * @param {Object|String} path
+     * @param {Object|String} options
      * @constructor
      */
     function Vide(element, path, options) {
@@ -147,12 +163,26 @@
         this._defaults = defaults;
         this._name = pluginName;
 
+        // parse path
+        if (typeof path === "string") {
+            path = parseOptions(path);
+        }
+
+        // parse options
+        if (!options) {
+            options = {};
+        } else if (typeof options === "string") {
+            options = parseOptions(options);
+        }
+
         // remove extension
-        if(typeof path === "string"){
+        if (typeof path === "string") {
             path = path.replace(/\.\w*$/, "");
-        } else if(typeof path === "object") {
-            for(var i in path){
-                path[i] = path[i].replace(/\.\w*$/, "");
+        } else if (typeof path === "object") {
+            for (var i in path) {
+                if (path.hasOwnProperty(i)) {
+                    path[i] = path[i].replace(/\.\w*$/, "");
+                }
             }
         }
 
@@ -164,6 +194,7 @@
 
     /**
      * Initialization
+     * @public
      */
     Vide.prototype.init = function () {
         var that = this;
@@ -190,25 +221,27 @@
 
         // Get poster path
         var poster = this.path;
-        if(typeof this.path === "object"){
-            if(this.path.poster){
+        if (typeof this.path === "object") {
+            if (this.path.poster) {
                 poster = this.path.poster;
             } else {
-                if(this.path.mp4) {
+                if (this.path.mp4) {
                     poster = this.path.mp4;
-                } else if(this.path.webm) {
+                } else if (this.path.webm) {
                     poster = this.path.webm;
-                } else if(this.path.ogv) {
-                    poster = this.path.webm;
+                } else if (this.path.ogv) {
+                    poster = this.path.ogv;
                 }
-            } 
+            }
         }
 
         // Set video poster
         if (this.settings.posterType === "detect") {
-            findPoster(poster, $.proxy(this.setPoster, this));
-        } else {
-            this.setPoster(poster + "." + this.settings.posterType);
+            findPoster(poster, function (url) {
+                that.wrapper.css("background-image", "url(" + url + ")");
+            });
+        } else if (this.settings.posterType !== "none") {
+            this.wrapper.css("background-image", "url(" + poster + "." + this.settings.posterType + ")");
         }
 
         // if parent element has a static position, make it relative
@@ -220,9 +253,9 @@
 
         if (!iOS && !android) {
 
-            if(typeof this.path === "object"){
+            if (typeof this.path === "object") {
                 var sources = "";
-                if(this.path.mp4) {
+                if (this.path.mp4) {
                     sources += "<source src='" + this.path.mp4 + ".mp4' type='video/mp4'>";
                 }
                 if(this.path.webm) {
@@ -281,17 +314,10 @@
         }
     };
 
-
-    /**
-     * Set Poster for the video
-     */
-    Vide.prototype.setPoster = function (url) {
-        this.wrapper.css("background-image", "url(" + url + ")");
-    };
-
     /**
      * Get video element of the background
-     * @returns {HTMLVideoElement}
+     * @returns {HTMLVideoElement|null}
+     * @public
      */
     Vide.prototype.getVideoObject = function () {
         return this.video ? this.video[0] : null;
@@ -299,6 +325,7 @@
 
     /**
      * Resize video background
+     * @public
      */
     Vide.prototype.resize = function () {
         if (!this.video) {
@@ -328,6 +355,7 @@
 
     /**
      * Destroy video background
+     * @public
      */
     Vide.prototype.destroy = function () {
         this.element.unbind(pluginName);
@@ -342,9 +370,10 @@
 
     /**
      * Plugin constructor
-     * @param path
-     * @param options
-     * @returns {*}
+     * @param {Object|String} path
+     * @param {Object|String} options
+     * @returns {JQuery}
+     * @constructor
      */
     $.fn[pluginName] = function (path, options) {
         var instance;
@@ -382,12 +411,6 @@
             var $element = $(element),
                 options = $element.data(pluginName + "-options"),
                 path = $element.data(pluginName + "-bg");
-
-            if (!options) {
-                options = {};
-            } else {
-                options = parseOptions(options);
-            }
 
             $element[pluginName](path, options);
         });
