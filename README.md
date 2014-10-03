@@ -37,12 +37,28 @@ Add `data-vide-bg` attribute with a path to the video and poster without extensi
 </div>
 ```
 
+Also you can set extended path:
+```html
+<div style="width: 1000px; height: 500px;"
+    data-vide-bg="mp4: path/to/video1, webm: path/to/video2, ogv: path/to/video3, poster: path/to/poster" data-vide-options="posterType: jpg, loop: false, muted: false, position: 0% 0%">
+</div>
+```
+
 In some situations it can be helpful to initialize it with JS because Vide doesn't have mutation observers:
 ```js
-$("#myBlock1").vide("path/to/video");
-$("#myBlock2").vide("path/to/video", {
+$("#myBlock").vide("path/to/video");
+$("#myBlock").vide("path/to/video", {
 ...options...
 });
+$("#myBlock").vide({
+    mp4: path/to/video1,
+    webm: path/to/video2,
+    ogv: path/to/video3,
+    poster: path/to/poster
+}, {
+...options...
+});
+$("#myBlock").vide("extended path as a string", "options as a string");
 ```
 
 Easy as hell.
@@ -59,7 +75,7 @@ $("#yourElement").vide({
     loop: true,
     autoplay: true,
     position: "50% 50%", // Similar to the CSS `background-position` property.
-    posterType: "detect" // Poster image type. The default is "detect", which means auto-detection.
+    posterType: "detect" // Poster image type. "detect" — auto-detection; "none" — no poster; "jpg", "png", "gif",... - extensions.
 });
 ```
 
