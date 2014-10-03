@@ -5,6 +5,7 @@
 * Updated JSDoc.
 * Updated tests.
 * Updated examples.
+* Added CONTRIBUTING.md
 * Other small fixes and optimizations.
 
 ### 0.1.2
