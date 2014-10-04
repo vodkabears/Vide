@@ -1,4 +1,5 @@
 ![Travis](https://travis-ci.org/VodkaBears/Vide.svg?branch=master)
+[![License](http://img.shields.io/license/MIT.png?color=green)](http://opensource.org/licenses/MIT)
 Vide
 ====
 
@@ -101,6 +102,10 @@ instance.destroy();
 ## Resizing
 
 The Vide plugin resizes if the window resizes. If you will use something like https://github.com/cowboy/jquery-resize, it will resize automatically when the container resizes. Or simply use `resize()` method whenever you need.
+
+## Ruby Gem
+
+Their is a new Ruby gem that wraps this jQuery plugin; called [Vider](https://github.com/wazery/vider) which is created by Islam Wazery, if you are developing a Rails application it will be useful for you.
 
 ## License
 
