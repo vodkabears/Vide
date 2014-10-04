@@ -1,6 +1,7 @@
 ### 0.1.3
 * Path argument can receive list of sources.
 * Strings with options and pathes can be passed to the constructor directly.
+* Added `posterType: none` value.
 * Updated README.
 * Updated JSDoc.
 * Updated tests.
