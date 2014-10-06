@@ -1,4 +1,4 @@
-![Travis](https://travis-ci.org/VodkaBears/Vide.svg?branch=master)
+[![Travis](https://travis-ci.org/VodkaBears/Vide.svg?branch=master)](https://travis-ci.org/VodkaBears/Vide)
 Vide
 ====
 
@@ -101,6 +101,10 @@ instance.destroy();
 ## Resizing
 
 The Vide plugin resizes if the window resizes. If you will use something like https://github.com/cowboy/jquery-resize, it will resize automatically when the container resizes. Or simply use `resize()` method whenever you need.
+
+## Encoding video
+
+http://diveintohtml5.info/video.html#miro
 
 ## License
 
