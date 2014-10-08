@@ -106,6 +106,10 @@ The Vide plugin resizes if the window resizes. If you will use something like ht
 
 http://diveintohtml5.info/video.html#miro
 
+## Ruby Gem
+
+[Vider](https://github.com/wazery/vider) by Islam Wazery.
+
 ## License
 
 ```
