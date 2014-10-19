@@ -56,7 +56,7 @@
         deepEqual($block3.data("vide").path, {
             mp4: "http://vodkabears.github.io/vide/video/ocean",
             webm: "video/ocean",
-            ogv: "video/ocean",
+            ogv: "http://vodkabears.github.io:80/vide/video/ocean",
             poster: "video/ocean"
         });
     });
@@ -83,7 +83,7 @@
         deepEqual(inst.path, {
             mp4: "http://vodkabears.github.io/vide/video/ocean",
             webm: "video/ocean",
-            ogv: "video/ocean",
+            ogv: "http://vodkabears.github.io:80/vide/video/ocean",
             poster: "video/ocean"
         });
 
