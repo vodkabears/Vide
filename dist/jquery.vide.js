@@ -53,16 +53,21 @@
         arr = str.replace(/\s*:\s*/g, ":").replace(/\s*,\s*/g, ",").split(",");
 
         // parse string
-        var i, len, prop, val, delimiterIndex;
+        var i, len, prop, val, delimiterIndex, option;
         for (i = 0, len = arr.length; i < len; i++) {
-            // Ignore urls
-            if (arr[i].replace(/^(http|https|ftp):\/\//, "").search(":") === -1) {
+            option = arr[i];
+
+            // Ignore urls and string without colon delimiters
+            if (
+                option.search(/^(http|https|ftp):\/\//) !== -1 ||
+                option.search(":") === -1
+            ) {
                 break;
             }
 
-            delimiterIndex = arr[i].indexOf(":");
-            prop = arr[i].substring(0, delimiterIndex);
-            val = arr[i].substring(delimiterIndex + 1);
+            delimiterIndex = option.indexOf(":");
+            prop = option.substring(0, delimiterIndex);
+            val = option.substring(delimiterIndex + 1);
 
             // if val is an empty string, make it undefined
             if (!val) {
