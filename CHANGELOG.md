@@ -1,3 +1,7 @@
+### 0.1.4
+* Fixed wrong URL parsing.
+* Changed main files in bower.json.
+
 ### 0.1.3
 * Path argument can receive list of sources.
 * Strings with options and pathes can be passed to the constructor directly.
