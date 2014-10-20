@@ -10,6 +10,5 @@
     "quotmark": "double",
     "smarttabs": true,
     "trailing": true,
-    "unused": true,
-    "node": true
+    "unused": true
 }

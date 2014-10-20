@@ -1,4 +1,4 @@
-;(function ($, window, document, navigator) {
+;(function($, window, document, navigator) {
     "use strict";
 
     /**
@@ -14,23 +14,13 @@
             autoplay: true,
             position: "50% 50%",
             posterType: "detect"
-        };
+        },
 
-    /**
-     * Is iOs or Android?
-     * @private
-     */
-    var iOS = /iPad|iPhone|iPod/i.test(navigator.userAgent),
+        // is iOs?
+        iOS = /iPad|iPhone|iPod/i.test(navigator.userAgent),
+
+        // is Android?
         android = /Android/i.test(navigator.userAgent);
-
-    /**
-     * Special plugin object for instances.
-     * @type {Object}
-     * @public
-     */
-    $[pluginName] = {
-        lookup: []
-    };
 
     /**
      * Parse string with options
@@ -38,22 +28,20 @@
      * @returns {Object|String}
      * @private
      */
-    var parseOptions = function (str) {
-        var obj = {}, arr;
+    function parseOptions(str) {
+        var obj = {}, arr, i, len, prop, val, delimiterIndex, option;
 
         // remove spaces around delimiters and split
         arr = str.replace(/\s*:\s*/g, ":").replace(/\s*,\s*/g, ",").split(",");
 
         // parse string
-        var i, len, prop, val, delimiterIndex, option;
         for (i = 0, len = arr.length; i < len; i++) {
             option = arr[i];
 
             // Ignore urls and string without colon delimiters
-            if (
-                option.search(/^(http|https|ftp):\/\//) !== -1 ||
-                option.search(":") === -1
-            ) {
+            if (option.search(/^(http|https|ftp):\/\//) !== -1 ||
+                option.search(":") === -1)
+            {
                 break;
             }
 
@@ -85,7 +73,7 @@
         }
 
         return obj;
-    };
+    }
 
     /**
      * Parse position option
@@ -93,15 +81,16 @@
      * @returns {Object}
      * @private
      */
-    var parsePosition = function (str) {
+    function parsePosition(str) {
         // convert anything to the string
         str = "" + str;
 
         // default value is a center
         var args = str.split(/\s+/),
-            x = "50%", y = "50%";
+            x = "50%", y = "50%",
+            i, len, arg;
 
-        for (var i = 0, len = args.length, arg; i < len; i++) {
+        for (i = 0, len = args.length; i < len; i++) {
             arg = args[i];
 
             // convert values
@@ -113,7 +102,7 @@
                 y = "0%";
             } else if (arg === "bottom") {
                 y = "100%";
-            } else if (arg === "center"){
+            } else if (arg === "center") {
                 if (i === 0) {
                     x = "50%";
                 } else {
@@ -129,7 +118,7 @@
         }
 
         return { x: x, y: y };
-    };
+    }
 
     /**
      * Search poster
@@ -137,8 +126,8 @@
      * @param {Function} callback
      * @private
      */
-    var findPoster = function (path, callback) {
-        var onLoad = function () {
+    function findPoster(path, callback) {
+        var onLoad = function() {
             callback(this.src);
         };
 
@@ -146,7 +135,7 @@
         $("<img src='" + path + ".jpg'>").load(onLoad);
         $("<img src='" + path + ".jpeg'>").load(onLoad);
         $("<img src='" + path + ".png'>").load(onLoad);
-    };
+    }
 
     /**
      * Vide constructor
@@ -193,14 +182,14 @@
      * Initialization
      * @public
      */
-    Vide.prototype.init = function () {
-        var that = this;
-
-        this.wrapper = $("<div>");
+    Vide.prototype.init = function() {
+        var that = this,
+            position = parsePosition(this.settings.position),
+            poster,
+            sources;
 
         // Set video wrapper styles
-        var position = parsePosition(this.settings.position);
-        this.wrapper.css({
+        this.wrapper = $("<div>").css({
             "position": "absolute",
             "z-index": -1,
             "top": 0,
@@ -217,7 +206,7 @@
         });
 
         // Get poster path
-        var poster = this.path;
+        poster = this.path;
         if (typeof this.path === "object") {
             if (this.path.poster) {
                 poster = this.path.poster;
@@ -234,11 +223,12 @@
 
         // Set video poster
         if (this.settings.posterType === "detect") {
-            findPoster(poster, function (url) {
+            findPoster(poster, function(url) {
                 that.wrapper.css("background-image", "url(" + url + ")");
             });
         } else if (this.settings.posterType !== "none") {
-            this.wrapper.css("background-image", "url(" + poster + "." + this.settings.posterType + ")");
+            this.wrapper
+                .css("background-image", "url(" + poster + "." + this.settings.posterType + ")");
         }
 
         // if parent element has a static position, make it relative
@@ -249,18 +239,19 @@
         this.element.prepend(this.wrapper);
 
         if (!iOS && !android) {
+            sources = "";
 
             if (typeof this.path === "object") {
-                var sources = "";
                 if (this.path.mp4) {
                     sources += "<source src='" + this.path.mp4 + ".mp4' type='video/mp4'>";
                 }
-                if(this.path.webm) {
+                if (this.path.webm) {
                     sources += "<source src='" + this.path.webm + ".webm' type='video/webm'>";
                 }
-                if(this.path.ogv) {
+                if (this.path.ogv) {
                     sources += "<source src='" + this.path.ogv + ".ogv' type='video/ogv'>";
                 }
+
                 this.video = $("<video>" + sources + "</video>");
             } else {
                 this.video = $("<video>" +
@@ -298,14 +289,14 @@
             });
 
             // resize video, when it's loaded
-            this.video.bind("loadedmetadata." + pluginName, function () {
+            this.video.bind("loadedmetadata." + pluginName, function() {
                 that.video.css("visibility", "visible");
                 that.resize();
             });
 
             // resize event is available only for 'window',
             // use another code solutions to detect DOM elements resizing
-            $(this.element).bind("resize." + pluginName, function () {
+            $(this.element).bind("resize." + pluginName, function() {
                 that.resize();
             });
         }
@@ -316,7 +307,7 @@
      * @returns {HTMLVideoElement|null}
      * @public
      */
-    Vide.prototype.getVideoObject = function () {
+    Vide.prototype.getVideoObject = function() {
         return this.video ? this.video[0] : null;
     };
 
@@ -324,17 +315,18 @@
      * Resize video background
      * @public
      */
-    Vide.prototype.resize = function () {
+    Vide.prototype.resize = function() {
         if (!this.video) {
             return;
         }
 
-        // get native video size
-        var videoHeight = this.video[0].videoHeight,
-            videoWidth = this.video[0].videoWidth;
+        var
+            // get native video size
+            videoHeight = this.video[0].videoHeight,
+            videoWidth = this.video[0].videoWidth,
 
-        // get wrapper size
-        var wrapperHeight = this.wrapper.height(),
+            // get wrapper size
+            wrapperHeight = this.wrapper.height(),
             wrapperWidth = this.wrapper.width();
 
         if (wrapperWidth / videoWidth > wrapperHeight / videoHeight) {
@@ -354,15 +346,24 @@
      * Destroy video background
      * @public
      */
-    Vide.prototype.destroy = function () {
+    Vide.prototype.destroy = function() {
         this.element.unbind(pluginName);
         if (this.video) {
             this.video.unbind(pluginName);
         }
-        
+
         delete $[pluginName].lookup[this.index];
         this.element.removeData(pluginName);
         this.wrapper.remove();
+    };
+
+    /**
+     * Special plugin object for instances.
+     * @type {Object}
+     * @public
+     */
+    $[pluginName] = {
+        lookup: []
     };
 
     /**
@@ -372,9 +373,9 @@
      * @returns {JQuery}
      * @constructor
      */
-    $.fn[pluginName] = function (path, options) {
+    $.fn[pluginName] = function(path, options) {
         var instance;
-        this.each(function () {
+        this.each(function() {
             instance = $.data(this, pluginName);
             if (instance) {
                 // destroy plugin instance if exists
@@ -389,9 +390,9 @@
         return this;
     };
 
-    $(document).ready(function () {
+    $(document).ready(function() {
         // window resize event listener
-        $(window).bind("resize." + pluginName, function () {
+        $(window).bind("resize." + pluginName, function() {
             for (var len = $[pluginName].lookup.length, instance, i = 0; i < len; i++) {
                 instance = $[pluginName].lookup[i];
                 if (instance) {
@@ -404,7 +405,7 @@
         // Add 'data-vide-bg' attribute with a path to the video without extension.
         // Also you can pass options throw the 'data-vide-options' attribute.
         // 'data-vide-options' must be like "muted: false, volume: 0.5".
-        $(document).find("[data-" + pluginName + "-bg]").each(function (i, element) {
+        $(document).find("[data-" + pluginName + "-bg]").each(function(i, element) {
             var $element = $(element),
                 options = $element.data(pluginName + "-options"),
                 path = $element.data(pluginName + "-bg");

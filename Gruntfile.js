@@ -1,4 +1,4 @@
-module.exports = function (grunt) {
+module.exports = function(grunt) {
 
     grunt.initConfig({
 
@@ -20,7 +20,7 @@ module.exports = function (grunt) {
         // Concat definitions
         concat: {
             dist: {
-                src: ["src/jquery.vide.js"],
+                src: "src/jquery.vide.js",
                 dest: "dist/jquery.vide.js"
             },
             options: {
@@ -43,13 +43,28 @@ module.exports = function (grunt) {
                 src: "Gruntfile.js"
             },
             src: {
-                src: ["src/**/*.js"]
+                src: "src/**/*.js"
             },
             test: {
-                src: ["test/**/*.js"]
+                src: "test/**/*.js"
             },
             options: {
                 jshintrc: ".jshintrc"
+            }
+        },
+
+        jscs: {
+            gruntfile: {
+                src: "Gruntfile.js"
+            },
+            src: {
+                src: "src/**/*.js"
+            },
+            test: {
+                src: "test/**/*.js"
+            },
+            options: {
+                preset: "jquery"
             }
         },
 
@@ -57,8 +72,9 @@ module.exports = function (grunt) {
         qunit: {
             all: {
                 options: {
-                    urls: ["1.11.1", "2.1.1"].map(function (version) {
-                        return "http://localhost:<%= connect.server.options.port %>/test/vide.html?jquery=" + version;
+                    urls: [ "1.11.1", "2.1.1" ].map(function(version) {
+                        return "http://localhost:<%= connect.server.options.port %>" +
+                            "/test/vide.html?jquery=" + version;
                     })
                 }
             }
@@ -66,8 +82,8 @@ module.exports = function (grunt) {
 
         // Minify definitions
         uglify: {
-            my_target: {
-                src: ["dist/jquery.vide.js"],
+            target: {
+                src: "dist/jquery.vide.js",
                 dest: "dist/jquery.vide.min.js"
             },
             options: {
@@ -79,9 +95,11 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks("grunt-contrib-concat");
     grunt.loadNpmTasks("grunt-contrib-connect");
     grunt.loadNpmTasks("grunt-contrib-jshint");
+    grunt.loadNpmTasks("grunt-jscs");
     grunt.loadNpmTasks("grunt-contrib-qunit");
     grunt.loadNpmTasks("grunt-contrib-uglify");
 
-    grunt.registerTask("default", ["connect", "jshint", "qunit", "concat", "uglify"]);
-    grunt.registerTask("test", ["connect", "jshint", "qunit"]);
+    grunt.registerTask("default", [ "connect", "jshint", "jscs", "qunit", "concat", "uglify" ]);
+    grunt.registerTask("lint", [ "jshint", "jscs" ]);
+    grunt.registerTask("test", [ "connect", "jshint", "jscs", "qunit" ]);
 };
