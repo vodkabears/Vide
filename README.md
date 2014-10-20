@@ -4,8 +4,6 @@ Vide
 
 Easy as hell jQuery plugin for video backgrounds.
 
-Minified version size: ~3.6kb
-
 ## Notes
 
 * All modern desktop browsers are supported.
@@ -15,7 +13,7 @@ Minified version size: ~3.6kb
 
 ## Instructions
 
-Download it from [GitHub](https://github.com/VodkaBears/Vide/archive/master.zip) or via Bower:
+Download it from [GitHub](https://github.com/VodkaBears/Vide/releases/latest) or via Bower:
 `bower install vide`
 
 Include plugin: `<script src="js/jquery.vide.min.js"></script>`
