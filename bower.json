@@ -7,7 +7,17 @@
     ],
     "description": "Easy as hell jQuery plugin for video backgrounds.",
     "main": "dist/jquery.vide.js",
-    "ignore": [],
+    "ignore": [
+        "**/.*",
+        "examples/",
+        "libs/",
+        "src/",
+        "test/",
+        "*.md",
+        "Gruntfile.js",
+        "package.json",
+        "vide.jquery.json"
+    ],
     "keywords": [
         "jquery",
         "plugin",
