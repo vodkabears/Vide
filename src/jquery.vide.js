@@ -1,4 +1,4 @@
-;(function($, window, document, navigator) {
+;(function($, window, document) {
     "use strict";
 
     /**
@@ -14,13 +14,16 @@
             autoplay: true,
             position: "50% 50%",
             posterType: "detect"
-        },
+        };
 
-        // is iOs?
-        iOS = /iPad|iPhone|iPod/i.test(navigator.userAgent),
-
-        // is Android?
-        android = /Android/i.test(navigator.userAgent);
+    /**
+     * Video tag feature detection support. Returns true for
+     * video support.
+     * @return {bool} supports video.
+     */
+    function videoSupport() {
+        return !!document.createElement("video").canPlayType;
+    }
 
     /**
      * Parse string with options
@@ -238,7 +241,7 @@
 
         this.element.prepend(this.wrapper);
 
-        if (!iOS && !android) {
+        if (videoSupport()) {
             sources = "";
 
             if (typeof this.path === "object") {
