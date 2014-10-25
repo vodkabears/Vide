@@ -17,10 +17,10 @@
         },
 
         // is iOs?
-        iOS = /iPad|iPhone|iPod/i.test(navigator.userAgent),
+        isIOS = /iPad|iPhone|iPod/i.test(navigator.userAgent),
 
         // is Android?
-        android = /Android/i.test(navigator.userAgent);
+        isAndroid = /Android/i.test(navigator.userAgent);
 
     /**
      * Parse string with options
@@ -238,7 +238,7 @@
 
         this.element.prepend(this.wrapper);
 
-        if (!iOS && !android) {
+        if (!isIOS && !isAndroid) {
             sources = "";
 
             if (typeof this.path === "object") {
