@@ -1,3 +1,7 @@
+### 0.2.0
+* Lots of updates since 0.1.0.
+* Improved code linting.
+
 ### 0.1.4
 * Fixed wrong URL parsing.
 * Changed main files in bower.json.
