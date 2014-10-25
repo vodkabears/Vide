@@ -89,6 +89,12 @@ module.exports = function(grunt) {
             options: {
                 banner: "<%= meta.banner %>"
             }
+        },
+
+        githooks: {
+            all: {
+                "pre-commit": "lint"
+            }
         }
     });
 
@@ -98,8 +104,18 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-jscs");
     grunt.loadNpmTasks("grunt-contrib-qunit");
     grunt.loadNpmTasks("grunt-contrib-uglify");
+    grunt.loadNpmTasks("grunt-githooks");
 
-    grunt.registerTask("default", [ "connect", "jshint", "jscs", "qunit", "concat", "uglify" ]);
-    grunt.registerTask("lint", [ "jshint", "jscs" ]);
-    grunt.registerTask("test", [ "connect", "jshint", "jscs", "qunit" ]);
+    grunt.registerTask("default", [
+        "connect", "jshint", "jscs", "qunit", "concat", "uglify", "githooks"
+    ]);
+    grunt.registerTask("hooks", [
+        "githooks"
+    ]);
+    grunt.registerTask("lint", [
+        "jshint", "jscs"
+    ]);
+    grunt.registerTask("test", [
+        "connect", "jshint", "jscs", "qunit"
+    ]);
 };
