@@ -107,10 +107,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-githooks");
 
     grunt.registerTask("default", [
-        "connect", "jshint", "jscs", "qunit", "concat", "uglify", "githooks"
-    ]);
-    grunt.registerTask("hooks", [
-        "githooks"
+        "", "connect", "jshint", "jscs", "qunit", "concat", "uglify", "githooks"
     ]);
     grunt.registerTask("lint", [
         "jshint", "jscs"

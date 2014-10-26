@@ -1,6 +1,7 @@
 {
   "private": true,
   "devDependencies": {
+    "bower": "^1.3.12",
     "grunt": "~0.4.5",
     "grunt-cli": "~0.1.13",
     "grunt-contrib-concat": "^0.4.0",
@@ -12,6 +13,7 @@
     "grunt-jscs": "^0.8.1"
   },
   "scripts": {
+    "postinstall" : "node_modules/.bin/bower install; node_modules/.bin/grunt githooks",
     "test": "grunt test"
   }
 }
