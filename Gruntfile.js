@@ -72,7 +72,7 @@ module.exports = function(grunt) {
         qunit: {
             all: {
                 options: {
-                    urls: [ "1.11.1", "2.1.1" ].map(function(version) {
+                    urls: [ "", "2" ].map(function(version) {
                         return "http://localhost:<%= connect.server.options.port %>" +
                             "/test/vide.html?jquery=" + version;
                     })
