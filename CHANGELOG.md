@@ -1,6 +1,9 @@
 ### 0.2.0
 * Lots of updates since 0.1.0.
 * Improved code linting.
+* Cleaned up the repository.
+* Added bower dependencies.
+* Updated devDependencies.
 
 ### 0.1.4
 * Fixed wrong URL parsing.
