@@ -1,3 +1,7 @@
+### 0.2.1
+* Code refactoring.
+* Updated devDependencies.
+
 ### 0.2.0
 * Lots of updates since 0.1.0.
 * Improved code linting.
