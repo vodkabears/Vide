@@ -1,4 +1,4 @@
-;(function($, window, document, navigator) {
+!(function($, window, document, navigator) {
     "use strict";
 
     /**
@@ -29,7 +29,12 @@
      * @private
      */
     function parseOptions(str) {
-        var obj = {}, arr, i, len, prop, val, delimiterIndex, option;
+        var obj = {},
+            delimiterIndex,
+            option,
+            prop, val,
+            arr, len,
+            i;
 
         // remove spaces around delimiters and split
         arr = str.replace(/\s*:\s*/g, ":").replace(/\s*,\s*/g, ",").split(",");
@@ -82,13 +87,13 @@
      * @private
      */
     function parsePosition(str) {
-        // convert anything to the string
         str = "" + str;
 
         // default value is a center
         var args = str.split(/\s+/),
             x = "50%", y = "50%",
-            i, len, arg;
+            len, arg,
+            i;
 
         for (i = 0, len = args.length; i < len; i++) {
             arg = args[i];
@@ -145,9 +150,7 @@
      * @constructor
      */
     function Vide(element, path, options) {
-        this.element = $(element);
-        this._defaults = defaults;
-        this._name = pluginName;
+        this.$element = $(element);
 
         // parse path
         if (typeof path === "string") {
@@ -183,13 +186,13 @@
      * @public
      */
     Vide.prototype.init = function() {
-        var that = this,
-            position = parsePosition(this.settings.position),
-            poster,
-            sources;
+        var vide = this,
+            position = parsePosition(vide.settings.position),
+            sources,
+            poster;
 
         // Set video wrapper styles
-        this.wrapper = $("<div>").css({
+        vide.$wrapper = $("<div>").css({
             "position": "absolute",
             "z-index": -1,
             "top": 0,
@@ -206,78 +209,78 @@
         });
 
         // Get poster path
-        poster = this.path;
-        if (typeof this.path === "object") {
-            if (this.path.poster) {
-                poster = this.path.poster;
+        poster = vide.path;
+        if (typeof vide.path === "object") {
+            if (vide.path.poster) {
+                poster = vide.path.poster;
             } else {
-                if (this.path.mp4) {
-                    poster = this.path.mp4;
-                } else if (this.path.webm) {
-                    poster = this.path.webm;
-                } else if (this.path.ogv) {
-                    poster = this.path.ogv;
+                if (vide.path.mp4) {
+                    poster = vide.path.mp4;
+                } else if (vide.path.webm) {
+                    poster = vide.path.webm;
+                } else if (vide.path.ogv) {
+                    poster = vide.path.ogv;
                 }
             }
         }
 
         // Set video poster
-        if (this.settings.posterType === "detect") {
+        if (vide.settings.posterType === "detect") {
             findPoster(poster, function(url) {
-                that.wrapper.css("background-image", "url(" + url + ")");
+                vide.$wrapper.css("background-image", "url(" + url + ")");
             });
-        } else if (this.settings.posterType !== "none") {
-            this.wrapper
-                .css("background-image", "url(" + poster + "." + this.settings.posterType + ")");
+        } else if (vide.settings.posterType !== "none") {
+            vide.$wrapper
+                .css("background-image", "url(" + poster + "." + vide.settings.posterType + ")");
         }
 
         // if parent element has a static position, make it relative
-        if (this.element.css("position") === "static") {
-            this.element.css("position", "relative");
+        if (vide.$element.css("position") === "static") {
+            vide.$element.css("position", "relative");
         }
 
-        this.element.prepend(this.wrapper);
+        vide.$element.prepend(vide.$wrapper);
 
         if (!isIOS && !isAndroid) {
             sources = "";
 
-            if (typeof this.path === "object") {
-                if (this.path.mp4) {
-                    sources += "<source src='" + this.path.mp4 + ".mp4' type='video/mp4'>";
+            if (typeof vide.path === "object") {
+                if (vide.path.mp4) {
+                    sources += "<source src='" + vide.path.mp4 + ".mp4' type='video/mp4'>";
                 }
-                if (this.path.webm) {
-                    sources += "<source src='" + this.path.webm + ".webm' type='video/webm'>";
+                if (vide.path.webm) {
+                    sources += "<source src='" + vide.path.webm + ".webm' type='video/webm'>";
                 }
-                if (this.path.ogv) {
-                    sources += "<source src='" + this.path.ogv + ".ogv' type='video/ogv'>";
+                if (vide.path.ogv) {
+                    sources += "<source src='" + vide.path.ogv + ".ogv' type='video/ogv'>";
                 }
 
-                this.video = $("<video>" + sources + "</video>");
+                vide.$video = $("<video>" + sources + "</video>");
             } else {
-                this.video = $("<video>" +
-                    "<source src='" + this.path + ".mp4' type='video/mp4'>" +
-                    "<source src='" + this.path + ".webm' type='video/webm'>" +
-                    "<source src='" + this.path + ".ogv' type='video/ogg'>" +
+                vide.$video = $("<video>" +
+                    "<source src='" + vide.path + ".mp4' type='video/mp4'>" +
+                    "<source src='" + vide.path + ".webm' type='video/webm'>" +
+                    "<source src='" + vide.path + ".ogv' type='video/ogg'>" +
                     "</video>");
             }
 
             // Disable visibility, while loading
-            this.video.css("visibility", "hidden");
+            vide.$video.css("visibility", "hidden");
 
             // Set video properties
-            this.video.prop({
-                autoplay: this.settings.autoplay,
-                loop: this.settings.loop,
-                volume: this.settings.volume,
-                muted: this.settings.muted,
-                playbackRate: this.settings.playbackRate
+            vide.$video.prop({
+                autoplay: vide.settings.autoplay,
+                loop: vide.settings.loop,
+                volume: vide.settings.volume,
+                muted: vide.settings.muted,
+                playbackRate: vide.settings.playbackRate
             });
 
             // Append video
-            this.wrapper.append(this.video);
+            vide.$wrapper.append(vide.$video);
 
             // Video alignment
-            this.video.css({
+            vide.$video.css({
                 "margin": "auto",
                 "position": "absolute",
                 "z-index": -1,
@@ -289,15 +292,15 @@
             });
 
             // resize video, when it's loaded
-            this.video.bind("loadedmetadata." + pluginName, function() {
-                that.video.css("visibility", "visible");
-                that.resize();
+            vide.$video.bind("loadedmetadata." + pluginName, function() {
+                vide.$video.css("visibility", "visible");
+                vide.resize();
             });
 
             // resize event is available only for 'window',
             // use another code solutions to detect DOM elements resizing
-            $(this.element).bind("resize." + pluginName, function() {
-                that.resize();
+            vide.$element.bind("resize." + pluginName, function() {
+                vide.resize();
             });
         }
     };
@@ -308,7 +311,7 @@
      * @public
      */
     Vide.prototype.getVideoObject = function() {
-        return this.video ? this.video[0] : null;
+        return this.$video ? this.$video[0] : null;
     };
 
     /**
@@ -316,26 +319,26 @@
      * @public
      */
     Vide.prototype.resize = function() {
-        if (!this.video) {
+        if (!this.$video) {
             return;
         }
 
         var
             // get native video size
-            videoHeight = this.video[0].videoHeight,
-            videoWidth = this.video[0].videoWidth,
+            videoHeight = this.$video[0].videoHeight,
+            videoWidth = this.$video[0].videoWidth,
 
             // get wrapper size
-            wrapperHeight = this.wrapper.height(),
-            wrapperWidth = this.wrapper.width();
+            wrapperHeight = this.$wrapper.height(),
+            wrapperWidth = this.$wrapper.width();
 
         if (wrapperWidth / videoWidth > wrapperHeight / videoHeight) {
-            this.video.css({
+            this.$video.css({
                 "width": wrapperWidth + 2, // +2 pixels to prevent empty space after transformation
                 "height": "auto"
             });
         } else {
-            this.video.css({
+            this.$video.css({
                 "width": "auto",
                 "height": wrapperHeight + 2 // +2 pixels to prevent empty space after transformation
             });
@@ -347,14 +350,15 @@
      * @public
      */
     Vide.prototype.destroy = function() {
-        this.element.unbind(pluginName);
-        if (this.video) {
-            this.video.unbind(pluginName);
+        this.$element.unbind(pluginName);
+
+        if (this.$video) {
+            this.$video.unbind(pluginName);
         }
 
         delete $[pluginName].lookup[this.index];
-        this.element.removeData(pluginName);
-        this.wrapper.remove();
+        this.$element.removeData(pluginName);
+        this.$wrapper.remove();
     };
 
     /**
@@ -375,12 +379,16 @@
      */
     $.fn[pluginName] = function(path, options) {
         var instance;
+
         this.each(function() {
             instance = $.data(this, pluginName);
+
             if (instance) {
+
                 // destroy plugin instance if exists
                 instance.destroy();
             }
+
             // create plugin instance
             instance = new Vide(this, path, options);
             instance.index = $[pluginName].lookup.push(instance) - 1;
@@ -391,10 +399,12 @@
     };
 
     $(document).ready(function() {
+
         // window resize event listener
         $(window).bind("resize." + pluginName, function() {
-            for (var len = $[pluginName].lookup.length, instance, i = 0; i < len; i++) {
+            for (var len = $[pluginName].lookup.length, i = 0, instance; i < len; i++) {
                 instance = $[pluginName].lookup[i];
+
                 if (instance) {
                     instance.resize();
                 }

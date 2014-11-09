@@ -110,20 +110,19 @@
         var inst1 = $block1.data("vide"),
             inst2 = $block2.data("vide"),
             inst3 = $block3.data("vide"),
-            wrapper1 = inst1.wrapper,
-            wrapper2 = inst2.wrapper,
-            wrapper3 = inst3.wrapper;
+            $wrapper1 = inst1.$wrapper,
+            $wrapper2 = inst2.$wrapper,
+            $wrapper3 = inst3.$wrapper;
 
         equal(inst2.settings.posterType, "gif");
-        ok(wrapper2.css("background-image").search("video/ocean.gif") > -1);
+        ok($wrapper2.css("background-image").search("video/ocean.gif") > -1);
 
         equal(inst3.settings.posterType, "none");
-        equal(wrapper3.css("background-image"), "none");
+        equal($wrapper3.css("background-image"), "none");
 
         equal(inst1.settings.posterType, "detect");
         setTimeout(function() {
-            console.log(wrapper1.css("background-image"));
-            ok(wrapper1
+            ok($wrapper1
                 .css("background-image")
                     .search("http://vodkabears.github.io/vide/video/ocean.jpg") > -1);
             QUnit.start();
@@ -131,10 +130,10 @@
     });
 
     QUnit.test("Poster position", function() {
-        var wrapper = $block1.data("vide").wrapper,
+        var $wrapper = $block1.data("vide").$wrapper,
             video = $block1.data("vide").getVideoObject();
 
-        equal(wrapper.css("background-position"), video.style.left + " " + video.style.top);
+        equal($wrapper.css("background-position"), video.style.left + " " + video.style.top);
     });
 
     QUnit.test("Re-initialization", function() {
@@ -166,22 +165,22 @@
 
     QUnit.test("resize() method", function() {
         var inst = $block1.data("vide"),
-            videoHeight = inst.video[0].videoHeight,
-            videoWidth = inst.video[0].videoWidth,
-            wrapperHeight = inst.wrapper.height(),
-            wrapperWidth = inst.wrapper.width();
+            videoHeight = inst.$video[0].videoHeight,
+            videoWidth = inst.$video[0].videoWidth,
+            wrapperHeight = inst.$wrapper.height(),
+            wrapperWidth = inst.$wrapper.width();
 
-        inst.video[0].style.width = "300px";
-        inst.video[0].style.height = "300px";
+        inst.$video[0].style.width = "300px";
+        inst.$video[0].style.height = "300px";
 
         inst.resize();
 
         if (wrapperWidth / videoWidth > wrapperHeight / videoHeight) {
-            equal(inst.video[0].style.width, wrapperWidth + 2 + "px");
-            equal(inst.video[0].style.height, "auto");
+            equal(inst.$video[0].style.width, wrapperWidth + 2 + "px");
+            equal(inst.$video[0].style.height, "auto");
         } else {
-            equal(inst.video[0].style.width, "auto");
-            equal(inst.video[0].style.height, wrapperHeight + 2 + "px");
+            equal(inst.$video[0].style.width, "auto");
+            equal(inst.$video[0].style.height, wrapperHeight + 2 + "px");
         }
     });
 
