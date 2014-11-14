@@ -1,5 +1,5 @@
 /*
- *  Vide - v0.2.1
+ *  Vide - v0.3.0
  *  Easy as hell jQuery plugin for video backgrounds.
  *  http://vodkabears.github.io/vide/
  *
@@ -21,7 +21,8 @@
             loop: true,
             autoplay: true,
             position: "50% 50%",
-            posterType: "detect"
+            posterType: "detect",
+            resizing: true
         },
 
         // is iOs?
@@ -303,12 +304,15 @@
             vide.$video.bind("loadedmetadata." + pluginName, function() {
                 vide.$video.css("visibility", "visible");
                 vide.resize();
+                vide.$wrapper.css("background-image", "none");
             });
 
             // resize event is available only for 'window',
             // use another code solutions to detect DOM elements resizing
             vide.$element.bind("resize." + pluginName, function() {
-                vide.resize();
+                if (vide.settings.resizing) {
+                    vide.resize();
+                }
             });
         }
     };
@@ -342,13 +346,17 @@
 
         if (wrapperWidth / videoWidth > wrapperHeight / videoHeight) {
             this.$video.css({
-                "width": wrapperWidth + 2, // +2 pixels to prevent empty space after transformation
+                "width": wrapperWidth + 2,
+
+                // +2 pixels to prevent empty space after transformation
                 "height": "auto"
             });
         } else {
             this.$video.css({
                 "width": "auto",
-                "height": wrapperHeight + 2 // +2 pixels to prevent empty space after transformation
+
+                // +2 pixels to prevent empty space after transformation
+                "height": wrapperHeight + 2
             });
         }
     };
@@ -413,7 +421,7 @@
             for (var len = $[pluginName].lookup.length, i = 0, instance; i < len; i++) {
                 instance = $[pluginName].lookup[i];
 
-                if (instance) {
+                if (instance && instance.settings.resizing) {
                     instance.resize();
                 }
             }
