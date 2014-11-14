@@ -75,7 +75,8 @@ $("#yourElement").vide({
     loop: true,
     autoplay: true,
     position: "50% 50%", // Similar to the CSS `background-position` property.
-    posterType: "detect" // Poster image type. "detect" — auto-detection; "none" — no poster; "jpg", "png", "gif",... - extensions.
+    posterType: "detect", // Poster image type. "detect" — auto-detection; "none" — no poster; "jpg", "png", "gif",... - extensions.
+    resizing: true // Auto-resizing, read: https://github.com/VodkaBears/Vide#resizing
 });
 ```
 
@@ -101,6 +102,8 @@ instance.destroy();
 ## Resizing
 
 The Vide plugin resizes if the window resizes. If you will use something like https://github.com/cowboy/jquery-resize, it will resize automatically when the container resizes. Or simply use `resize()` method whenever you need.
+
+Set the `resizing` option to false to disable auto-resizing.
 
 ## Encoding video
 
