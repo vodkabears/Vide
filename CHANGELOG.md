@@ -1,3 +1,7 @@
+### 0.3.0
+* Added the `resizing` option.
+* Updated tests.
+
 ### 0.2.1
 * Code refactoring.
 * Updated devDependencies.
