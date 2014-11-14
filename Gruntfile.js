@@ -94,6 +94,9 @@ module.exports = function(grunt) {
         githooks: {
             all: {
                 "pre-commit": "lint"
+            },
+            options: {
+                command: "node_modules/.bin/grunt"
             }
         }
     });
