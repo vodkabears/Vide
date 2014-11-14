@@ -294,7 +294,6 @@
 
             // resize video, when it's loaded
             vide.$video.bind("loadedmetadata." + pluginName, function() {
-                console.log("loadmetadata");
                 vide.$video.css("visibility", "visible");
                 vide.resize();
                 vide.$wrapper.css("background-image", "none");
@@ -339,13 +338,17 @@
 
         if (wrapperWidth / videoWidth > wrapperHeight / videoHeight) {
             this.$video.css({
-                "width": wrapperWidth + 2, // +2 pixels to prevent empty space after transformation
+                "width": wrapperWidth + 2,
+
+                // +2 pixels to prevent empty space after transformation
                 "height": "auto"
             });
         } else {
             this.$video.css({
                 "width": "auto",
-                "height": wrapperHeight + 2 // +2 pixels to prevent empty space after transformation
+
+                // +2 pixels to prevent empty space after transformation
+                "height": wrapperHeight + 2
             });
         }
     };
