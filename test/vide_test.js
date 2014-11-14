@@ -20,7 +20,12 @@
      throws(block, [expected], [message])
      */
 
-    var $block1, $block2, $block3, $block4, $block5;
+    var $block1,
+        $block2,
+        $block3,
+        $block4,
+        $block5,
+        $block6;
 
     QUnit.begin(function() {
         $block1 = $("#block1");
@@ -28,6 +33,7 @@
         $block3 = $("#block3");
         $block4 = $("#block4");
         $block5 = $("#block5");
+        $block6 = $("#block6");
     });
 
     QUnit.test("Initialization", function() {
@@ -46,10 +52,24 @@
         ok($block3.data("vide"));
         ok($block4.data("vide"));
         ok($block5.data("vide"));
+        ok($block6.data("vide"));
+    });
+
+    QUnit.test("Default settings", function() {
+        var inst = $block6.data("vide");
+
+        strictEqual(inst.settings.volume, 1);
+        strictEqual(inst.settings.playbackRate, 1);
+        strictEqual(inst.settings.muted, true);
+        strictEqual(inst.settings.loop, true);
+        strictEqual(inst.settings.autoplay, true);
+        strictEqual(inst.settings.position, "50% 50%");
+        strictEqual(inst.settings.posterType, "detect");
+        strictEqual(inst.settings.resizing, true);
     });
 
     QUnit.test("Parsing of the path", function() {
-        equal($block1.data("vide").path, $block1.data("vide-bg"));
+        strictEqual($block1.data("vide").path, $block1.data("vide-bg"));
     });
 
     QUnit.test("Parsing of the path with multiple names", function() {
@@ -65,16 +85,16 @@
         var inst = $block1.data("vide"),
             video = $block1.data("vide").getVideoObject();
 
-        equal(inst.settings.loop, false);
-        equal(inst.settings.volume, 0.3);
-        equal(inst.settings.playbackRate, 1);
-        equal(inst.settings.position, "60%    bottom");
+        strictEqual(inst.settings.loop, false);
+        strictEqual(inst.settings.volume, 0.3);
+        strictEqual(inst.settings.playbackRate, 1);
+        strictEqual(inst.settings.position, "60%    bottom");
 
-        equal(video.loop, false);
-        equal(video.volume, 0.3);
-        equal(video.playbackRate, 1);
-        equal(video.style.left, "60%");
-        equal(video.style.top, "100%");
+        strictEqual(video.loop, false);
+        strictEqual(video.volume, 0.3);
+        strictEqual(video.playbackRate, 1);
+        strictEqual(video.style.left, "60%");
+        strictEqual(video.style.top, "100%");
     });
 
     QUnit.test("Passing JSON with the data attribute", function() {
@@ -87,8 +107,8 @@
             poster: "video/ocean"
         });
 
-        equal(inst.settings.loop, false);
-        equal(inst.settings.volume, 0.3);
+        strictEqual(inst.settings.loop, false);
+        strictEqual(inst.settings.volume, 0.3);
     });
 
     QUnit.test("Passing strings with params directly to the constructor", function() {
@@ -101,9 +121,9 @@
             poster: "video/ocean"
         });
 
-        equal(inst.settings.loop, false);
-        equal(inst.settings.volume, 0.3);
-        equal(inst.settings.playbackRate, 1);
+        strictEqual(inst.settings.loop, false);
+        strictEqual(inst.settings.volume, 0.3);
+        strictEqual(inst.settings.playbackRate, 1);
     });
 
     QUnit.asyncTest("Poster detection", function() {
@@ -114,13 +134,13 @@
             $wrapper2 = inst2.$wrapper,
             $wrapper3 = inst3.$wrapper;
 
-        equal(inst2.settings.posterType, "gif");
+        strictEqual(inst2.settings.posterType, "gif");
         ok($wrapper2.css("background-image").search("video/ocean.gif") > -1);
 
-        equal(inst3.settings.posterType, "none");
-        equal($wrapper3.css("background-image"), "none");
+        strictEqual(inst3.settings.posterType, "none");
+        strictEqual($wrapper3.css("background-image"), "none");
 
-        equal(inst1.settings.posterType, "detect");
+        strictEqual(inst1.settings.posterType, "detect");
         setTimeout(function() {
             ok($wrapper1
                 .css("background-image")
@@ -133,7 +153,7 @@
         var $wrapper = $block1.data("vide").$wrapper,
             video = $block1.data("vide").getVideoObject();
 
-        equal($wrapper.css("background-position"), video.style.left + " " + video.style.top);
+        strictEqual($wrapper.css("background-position"), video.style.left + " " + video.style.top);
     });
 
     QUnit.test("Re-initialization", function() {
@@ -152,7 +172,8 @@
         ok($block3.data("vide"));
         ok($block4.data("vide"));
         ok($block5.data("vide"));
-        equal(count, 5);
+        ok($block6.data("vide"));
+        equal(count, 6);
     });
 
     QUnit.test("getVideoObject() method", function() {
@@ -161,6 +182,7 @@
         ok($block3.data("vide").getVideoObject());
         ok($block4.data("vide").getVideoObject());
         ok($block5.data("vide").getVideoObject());
+        ok($block6.data("vide").getVideoObject());
     });
 
     QUnit.test("resize() method", function() {
@@ -176,11 +198,11 @@
         inst.resize();
 
         if (wrapperWidth / videoWidth > wrapperHeight / videoHeight) {
-            equal(inst.$video[0].style.width, wrapperWidth + 2 + "px");
-            equal(inst.$video[0].style.height, "auto");
+            strictEqual(inst.$video[0].style.width, wrapperWidth + 2 + "px");
+            strictEqual(inst.$video[0].style.height, "auto");
         } else {
-            equal(inst.$video[0].style.width, "auto");
-            equal(inst.$video[0].style.height, wrapperHeight + 2 + "px");
+            strictEqual(inst.$video[0].style.width, "auto");
+            strictEqual(inst.$video[0].style.height, wrapperHeight + 2 + "px");
         }
     });
 
@@ -190,17 +212,19 @@
         $block3.data("vide").destroy();
         $block4.data("vide").destroy();
         $block5.data("vide").destroy();
+        $block6.data("vide").destroy();
 
         var count = $.vide.lookup.filter(function(value) {
             return value !== undefined;
         }).length;
 
-        equal(count, 0);
-        equal($block1.find("video").length, 0);
-        equal($block2.find("video").length, 0);
-        equal($block3.find("video").length, 0);
-        equal($block4.find("video").length, 0);
-        equal($block5.find("video").length, 0);
+        strictEqual(count, 0);
+        strictEqual($block1.find("video").length, 0);
+        strictEqual($block2.find("video").length, 0);
+        strictEqual($block3.find("video").length, 0);
+        strictEqual($block4.find("video").length, 0);
+        strictEqual($block5.find("video").length, 0);
+        strictEqual($block6.find("video").length, 0);
     });
 
-}(jQuery));
+}(window.jQuery));
