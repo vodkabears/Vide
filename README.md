@@ -109,6 +109,17 @@ Set the `resizing` option to false to disable auto-resizing.
 
 http://diveintohtml5.info/video.html#miro
 
+## Meteor
+
+Because of how meteor renders templates reactively you will need to initialize
+manually for the templates you want to use vide in.
+
+```js
+Template.templateName.rendered = function() {
+    this.$('#elementName').vide('fileNameWithoutExtension');
+}
+```
+
 ## Ruby Gem
 
 [Vider](https://github.com/wazery/vider) by Islam Wazery.
