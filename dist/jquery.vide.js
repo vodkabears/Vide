@@ -300,8 +300,17 @@
                 "transform": "translate(-" + position.x + ", -" + position.y + ")"
             });
 
-            // resize video, when it's loaded
+            // resize video and set properties again, when it's loaded
             vide.$video.bind("loadedmetadata." + pluginName, function() {
+                // Set video properties
+                vide.$video.prop({
+                    autoplay: vide.settings.autoplay,
+                    loop: vide.settings.loop,
+                    volume: vide.settings.volume,
+                    muted: vide.settings.muted,
+                    playbackRate: vide.settings.playbackRate
+                });
+
                 vide.$video.css("visibility", "visible");
                 vide.resize();
                 vide.$wrapper.css("background-image", "none");
