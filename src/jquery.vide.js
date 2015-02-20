@@ -308,7 +308,7 @@
       });
 
       // Resize a video, when it's loaded
-      vide.$video.bind('loadedmetadata.' + pluginName, function() {
+      vide.$video.bind('canplaythrough.' + pluginName, function() {
         vide.$video.css('visibility', 'visible');
         vide.resize();
         vide.$wrapper.css('background-image', 'none');
