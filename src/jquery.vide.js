@@ -308,7 +308,7 @@
       });
 
       // Resize a video, when it's loaded
-      vide.$video.bind('canplaythrough.' + pluginName, function() {
+      vide.$video.on('canplaythrough.' + pluginName, function() {
         vide.$video.css('visibility', 'visible');
         vide.resize();
         vide.$wrapper.css('background-image', 'none');
@@ -316,7 +316,7 @@
 
       // Resize event is available only for 'window'
       // Use another code solutions to detect DOM elements resizing
-      vide.$element.bind('resize.' + pluginName, function() {
+      vide.$element.on('resize.' + pluginName, function() {
         if (vide.settings.resizing) {
           vide.resize();
         }
@@ -372,10 +372,10 @@
    * @public
    */
   Vide.prototype.destroy = function() {
-    this.$element.unbind(pluginName);
+    this.$element.off(pluginName);
 
     if (this.$video) {
-      this.$video.unbind(pluginName);
+      this.$video.off(pluginName);
     }
 
     delete $[pluginName].lookup[this.index];
@@ -423,7 +423,7 @@
   $(document).ready(function() {
 
     // Window resize event listener
-    $(window).bind('resize.' + pluginName, function() {
+    $(window).on('resize.' + pluginName, function() {
       for (var len = $[pluginName].lookup.length, i = 0, instance; i < len; i++) {
         instance = $[pluginName].lookup[i];
 
