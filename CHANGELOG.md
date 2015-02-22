@@ -1,3 +1,11 @@
+### 0.3.1
+* Fixed a flash.
+* Fixed Safari playback bugs.
+* Used package.json instead of vide.jquery.json.
+* Used '#on' instead of '#bind'.
+* Imporved the codestyle.
+* Updated dependencies.
+
 ### 0.3.0
 * Added the `resizing` option.
 * Updated tests.
