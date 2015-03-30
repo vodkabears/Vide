@@ -58,9 +58,10 @@
       option = arr[i];
 
       // Ignore urls and a string without colon delimiters
-      if (option.search(/^(http|https|ftp):\/\//) !== -1 ||
-        option.search(':') === -1)
-      {
+      if (
+        option.search(/^(http|https|ftp):\/\//) !== -1 ||
+        option.search(':') === -1
+      ) {
         break;
       }
 
@@ -264,9 +265,11 @@
         if (vide.path.mp4) {
           sources += '<source src="' + vide.path.mp4 + '.mp4" type="video/mp4">';
         }
+
         if (vide.path.webm) {
           sources += '<source src="' + vide.path.webm + '.webm" type="video/webm">';
         }
+
         if (vide.path.ogv) {
           sources += '<source src="' + vide.path.ogv + '.ogv" type="video/ogv">';
         }
