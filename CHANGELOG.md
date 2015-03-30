@@ -1,3 +1,8 @@
+### 0.3.2
+* Added support of old FF versions.
+* Improved Safari playback fixes.
+* Updated dependencies.
+
 ### 0.3.1
 * Fixed a flash.
 * Fixed Safari playback bugs.
