@@ -313,6 +313,7 @@
         left: position.x,
         '-webkit-transform': 'translate(-' + position.x + ', -' + position.y + ')',
         '-ms-transform': 'translate(-' + position.x + ', -' + position.y + ')',
+        '-moz-transform': 'translate(-' + position.x + ', -' + position.y + ')',
         transform: 'translate(-' + position.x + ', -' + position.y + ')'
       });
 
