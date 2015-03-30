@@ -325,7 +325,7 @@
         refreshSettings(vide);
 
         // Force to play, important for Safari
-        vide.settings.autoplay && vide.$video[0].play();
+        vide.$video.prop('autoplay') && vide.$video[0].play();
 
         vide.resize();
         vide.$wrapper.css('background-image', 'none');
