@@ -159,21 +159,6 @@
   }
 
   /**
-   * Refresh current settings
-   * @private
-   * @param {Vide} vide
-   */
-  function refreshSettings(vide) {
-    vide.$video.prop({
-      autoplay: vide.settings.autoplay,
-      loop: vide.settings.loop,
-      volume: vide.settings.volume,
-      muted: vide.settings.muted,
-      playbackRate: vide.settings.playbackRate
-    });
-  }
-
-  /**
    * Vide constructor
    * @param {HTMLElement} element
    * @param {Object|String} path
@@ -299,7 +284,15 @@
       vide.$video.css('visibility', 'hidden');
 
       // Set video properties
-      refreshSettings(vide);
+      vide.$video.prop({
+        autoplay: vide.settings.autoplay,
+        loop: vide.settings.loop,
+        volume: vide.settings.volume,
+        muted: vide.settings.muted,
+        defaultMuted: vide.settings.muted,
+        playbackRate: vide.settings.playbackRate,
+        defaultPlaybackRate: vide.settings.playbackRate
+      });
 
       // Append a video
       vide.$wrapper.append(vide.$video);
@@ -320,9 +313,6 @@
       // Resize a video, when it's loaded
       vide.$video.on('canplaythrough.' + pluginName, function() {
         vide.$video.css('visibility', 'visible');
-
-        // https://github.com/VodkaBears/Vide/pull/48
-        refreshSettings(vide);
 
         // Force to play, important for Safari
         vide.$video.prop('autoplay') && vide.$video[0].play();
