@@ -1,5 +1,5 @@
 /*
- *  Vide - v0.3.1
+ *  Vide - v0.3.2
  *  Easy as hell jQuery plugin for video backgrounds.
  *  http://vodkabears.github.io/vide/
  *
@@ -66,9 +66,10 @@
       option = arr[i];
 
       // Ignore urls and a string without colon delimiters
-      if (option.search(/^(http|https|ftp):\/\//) !== -1 ||
-        option.search(':') === -1)
-      {
+      if (
+        option.search(/^(http|https|ftp):\/\//) !== -1 ||
+        option.search(':') === -1
+      ) {
         break;
       }
 
@@ -164,21 +165,6 @@
     $('<img src="' + path + '.jpg">').load(onLoad);
     $('<img src="' + path + '.jpeg">').load(onLoad);
     $('<img src="' + path + '.png">').load(onLoad);
-  }
-
-  /**
-   * Refresh current settings
-   * @private
-   * @param {Vide} vide
-   */
-  function refreshSettings(vide) {
-    vide.$video.prop({
-      autoplay: vide.settings.autoplay,
-      loop: vide.settings.loop,
-      volume: vide.settings.volume,
-      muted: vide.settings.muted,
-      playbackRate: vide.settings.playbackRate
-    });
   }
 
   /**
@@ -287,9 +273,11 @@
         if (vide.path.mp4) {
           sources += '<source src="' + vide.path.mp4 + '.mp4" type="video/mp4">';
         }
+
         if (vide.path.webm) {
           sources += '<source src="' + vide.path.webm + '.webm" type="video/webm">';
         }
+
         if (vide.path.ogv) {
           sources += '<source src="' + vide.path.ogv + '.ogv" type="video/ogv">';
         }
@@ -307,7 +295,15 @@
       vide.$video.css('visibility', 'hidden');
 
       // Set video properties
-      refreshSettings(vide);
+      vide.$video.prop({
+        autoplay: vide.settings.autoplay,
+        loop: vide.settings.loop,
+        volume: vide.settings.volume,
+        muted: vide.settings.muted,
+        defaultMuted: vide.settings.muted,
+        playbackRate: vide.settings.playbackRate,
+        defaultPlaybackRate: vide.settings.playbackRate
+      });
 
       // Append a video
       vide.$wrapper.append(vide.$video);
@@ -321,6 +317,7 @@
         left: position.x,
         '-webkit-transform': 'translate(-' + position.x + ', -' + position.y + ')',
         '-ms-transform': 'translate(-' + position.x + ', -' + position.y + ')',
+        '-moz-transform': 'translate(-' + position.x + ', -' + position.y + ')',
         transform: 'translate(-' + position.x + ', -' + position.y + ')'
       });
 
@@ -328,11 +325,8 @@
       vide.$video.on('canplaythrough.' + pluginName, function() {
         vide.$video.css('visibility', 'visible');
 
-        // https://github.com/VodkaBears/Vide/pull/48
-        refreshSettings(vide);
-
         // Force to play, important for Safari
-        vide.settings.autoplay && vide.$video[0].play();
+        vide.$video.prop('autoplay') && vide.$video[0].play();
 
         vide.resize();
         vide.$wrapper.css('background-image', 'none');
