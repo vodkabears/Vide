@@ -169,7 +169,9 @@
       loop: vide.settings.loop,
       volume: vide.settings.volume,
       muted: vide.settings.muted,
-      playbackRate: vide.settings.playbackRate
+      playbackRate: vide.settings.playbackRate,
+      preload: 'none',
+      poster: vide.path + '.jpg',
     });
   }
 
