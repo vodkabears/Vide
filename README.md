@@ -111,14 +111,24 @@ http://diveintohtml5.info/video.html#miro
 
 ## Meteor
 
+### Install
+
+```sh
+meteor install vodkabears:vide
+```
+
+### Usage
+
 Because of how meteor renders templates reactively you will need to initialize
 manually for the templates you want to use vide in.
 
 ```js
-Template.templateName.rendered = function() {
-    this.$('#elementName').vide('fileNameWithoutExtension');
-}
+Template.templateName.onRendered(function() {
+  this.$('#elementName').vide('fileNameWithoutExtension');
+});
 ```
+
+Meteor integration by [zimme](https://github.com/zimme).
 
 ## Ruby Gem
 

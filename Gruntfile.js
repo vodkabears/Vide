@@ -89,6 +89,12 @@ module.exports = function(grunt) {
       options: {
         command: 'node_modules/.bin/grunt'
       }
+    },
+
+    exec: {
+      'meteor-test': {
+        command: 'node_modules/.bin/spacejam --mongo-url mongodb:// test-packages ./'
+      }
     }
   });
 
@@ -99,6 +105,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-githooks');
   grunt.loadNpmTasks('grunt-jscs');
+  grunt.loadNpmTasks('grunt-exec');
 
   grunt.registerTask('default', [
     'connect', 'jshint', 'jscs', 'qunit', 'concat', 'uglify', 'githooks'
@@ -107,6 +114,6 @@ module.exports = function(grunt) {
     'jshint', 'jscs'
   ]);
   grunt.registerTask('test', [
-    'connect', 'jshint', 'jscs', 'qunit'
+    'connect', 'jshint', 'jscs', 'qunit', 'exec:meteor-test'
   ]);
 };
