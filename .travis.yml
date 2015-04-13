@@ -1,3 +1,5 @@
 language: node_js
 node_js:
   - 0.10
+before_install:
+  - "curl -L https://raw.githubusercontent.com/arunoda/travis-ci-meteor-packages/master/configure.sh | /bin/sh"
