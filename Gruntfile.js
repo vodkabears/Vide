@@ -93,7 +93,7 @@ module.exports = function(grunt) {
 
     exec: {
       'meteor-test': {
-        command: 'node_modules/.bin/spacejam --mongo-url mongodb:// test-packages ./'
+        command: 'node_modules/.bin/spacejam test-packages ./'
       }
     }
   });
