@@ -1,4 +1,13 @@
-!(function($, window, document, navigator) {
+(function(root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    define(['jquery'], factory);
+  } else if (typeof exports === 'object') {
+    factory(require('jquery'));
+  } else {
+    factory(root.jQuery);
+  }
+})(this, function($) {
+
   'use strict';
 
   /**
@@ -457,4 +466,5 @@
       $element[pluginName](path, options);
     });
   });
-})(window.jQuery, window, document, navigator);
+
+});

@@ -26,6 +26,7 @@
   },
   "homepage": "http://vodkabears.github.io/vide/",
   "license": "MIT",
+  "main": "dist/jquery.vide.js",
   "dependencies": {
     "jquery": "*"
   },
@@ -44,7 +45,7 @@
     "spacejam": "^1.1.4"
   },
   "scripts": {
-    "postinstall": "./node_modules/.bin/bower install && ./node_modules/.bin/grunt githooks",
+    "start": "npm install && ./node_modules/.bin/bower install && ./node_modules/.bin/grunt githooks",
     "test": "./node_modules/.bin/grunt test"
   }
 }

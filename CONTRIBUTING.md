@@ -2,7 +2,7 @@ CONTRIBUTING
 ====
 
 1. Fork.
-2. Run `npm install`.
+2. Run `npm start`.
 3. Make your changes on the `src` folder.
 4. Update tests.
 5. Run `npm test`, make sure everything is okay.
