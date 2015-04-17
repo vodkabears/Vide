@@ -316,10 +316,6 @@
       // Resize a video, when it's loaded
       vide.$video.on('canplaythrough.' + pluginName, function() {
         vide.$video.css('visibility', 'visible');
-
-        // Force to play, important for Safari
-        vide.$video.prop('autoplay') && vide.$video[0].play();
-
         vide.resize();
         vide.$wrapper.css('background-image', 'none');
       });
@@ -431,9 +427,10 @@
   };
 
   $(document).ready(function() {
+    var $window = $(window);
 
     // Window resize event listener
-    $(window).on('resize.' + pluginName, function() {
+    $window.on('resize.' + pluginName, function() {
       for (var len = $[pluginName].lookup.length, i = 0, instance; i < len; i++) {
         instance = $[pluginName].lookup[i];
 
@@ -441,6 +438,11 @@
           instance.resize();
         }
       }
+    });
+
+    // https://github.com/VodkaBears/Vide/issues/68
+    $window.on('unload.' + pluginName, function() {
+      return false;
     });
 
     // Auto initialization
