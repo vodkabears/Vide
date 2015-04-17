@@ -1,0 +1,19 @@
+Package.describe({
+  documentation: 'Meteor.md',
+  git: 'https://github.com/VodkaBears/Vide',
+  name: 'vodkabears:vide',
+  summary: 'Easy as hell jQuery plugin for video backgrounds',
+  version: '0.3.2'
+});
+
+Package.onUse(function(api) {
+  api.versionsFrom('1.0');
+  api.use('jquery', 'client');
+  api.addFiles('dist/jquery.vide.js', 'client');
+});
+
+Package.onTest(function(api) {
+  api.use('vodkabears:vide', 'client');
+  api.use('tinytest', 'client');
+  api.addFiles('test/meteor_test.js', 'client');
+});
