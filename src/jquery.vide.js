@@ -32,18 +32,6 @@
   };
 
   /**
-   * Is iOs?
-   * @private
-   */
-  var isIOS = /iPad|iPhone|iPod/i.test(navigator.userAgent);
-
-  /**
-   * Is Android?
-   * @private
-   */
-  var isAndroid = /Android/i.test(navigator.userAgent);
-
-  /**
    * Parse a string with options
    * @private
    * @param {String} str
@@ -214,7 +202,7 @@
   Vide.prototype.init = function() {
     var vide = this;
     var position = parsePosition(vide.settings.position);
-    var sources;
+    var sources = '';
     var poster;
 
     // Set styles of a video wrapper
@@ -267,76 +255,72 @@
 
     vide.$element.prepend(vide.$wrapper);
 
-    if (!isIOS && !isAndroid) {
-      sources = '';
-
-      if (typeof vide.path === 'object') {
-        if (vide.path.mp4) {
-          sources += '<source src="' + vide.path.mp4 + '.mp4" type="video/mp4">';
-        }
-
-        if (vide.path.webm) {
-          sources += '<source src="' + vide.path.webm + '.webm" type="video/webm">';
-        }
-
-        if (vide.path.ogv) {
-          sources += '<source src="' + vide.path.ogv + '.ogv" type="video/ogv">';
-        }
-
-        vide.$video = $('<video>' + sources + '</video>');
-      } else {
-        vide.$video = $('<video>' +
-          '<source src="' + vide.path + '.mp4" type="video/mp4">' +
-          '<source src="' + vide.path + '.webm" type="video/webm">' +
-          '<source src="' + vide.path + '.ogv" type="video/ogg">' +
-          '</video>');
+    if (typeof vide.path === 'object') {
+      if (vide.path.mp4) {
+        sources += '<source src="' + vide.path.mp4 + '.mp4" type="video/mp4">';
       }
 
-      // Disable visibility, while loading
-      vide.$video.css('visibility', 'hidden');
+      if (vide.path.webm) {
+        sources += '<source src="' + vide.path.webm + '.webm" type="video/webm">';
+      }
 
-      // Set video properties
-      vide.$video.prop({
-        autoplay: vide.settings.autoplay,
-        loop: vide.settings.loop,
-        volume: vide.settings.volume,
-        muted: vide.settings.muted,
-        defaultMuted: vide.settings.muted,
-        playbackRate: vide.settings.playbackRate,
-        defaultPlaybackRate: vide.settings.playbackRate
-      });
+      if (vide.path.ogv) {
+        sources += '<source src="' + vide.path.ogv + '.ogv" type="video/ogv">';
+      }
 
-      // Append a video
-      vide.$wrapper.append(vide.$video);
-
-      // Video alignment
-      vide.$video.css({
-        margin: 'auto',
-        position: 'absolute',
-        'z-index': -1,
-        top: position.y,
-        left: position.x,
-        '-webkit-transform': 'translate(-' + position.x + ', -' + position.y + ')',
-        '-ms-transform': 'translate(-' + position.x + ', -' + position.y + ')',
-        '-moz-transform': 'translate(-' + position.x + ', -' + position.y + ')',
-        transform: 'translate(-' + position.x + ', -' + position.y + ')'
-      });
-
-      // Resize a video, when it's loaded
-      vide.$video.on('canplaythrough.' + pluginName, function() {
-        vide.$video.css('visibility', 'visible');
-        vide.resize();
-        vide.$wrapper.css('background-image', 'none');
-      });
-
-      // Resize event is available only for 'window'
-      // Use another code solutions to detect DOM elements resizing
-      vide.$element.on('resize.' + pluginName, function() {
-        if (vide.settings.resizing) {
-          vide.resize();
-        }
-      });
+      vide.$video = $('<video>' + sources + '</video>');
+    } else {
+      vide.$video = $('<video>' +
+        '<source src="' + vide.path + '.mp4" type="video/mp4">' +
+        '<source src="' + vide.path + '.webm" type="video/webm">' +
+        '<source src="' + vide.path + '.ogv" type="video/ogg">' +
+        '</video>');
     }
+
+    // Disable visibility, while loading
+    vide.$video.css('visibility', 'hidden');
+
+    // Set video properties
+    vide.$video.prop({
+      autoplay: vide.settings.autoplay,
+      loop: vide.settings.loop,
+      volume: vide.settings.volume,
+      muted: vide.settings.muted,
+      defaultMuted: vide.settings.muted,
+      playbackRate: vide.settings.playbackRate,
+      defaultPlaybackRate: vide.settings.playbackRate
+    });
+
+    // Video alignment
+    vide.$video.css({
+      margin: 'auto',
+      position: 'absolute',
+      'z-index': -1,
+      top: position.y,
+      left: position.x,
+      '-webkit-transform': 'translate(-' + position.x + ', -' + position.y + ')',
+      '-ms-transform': 'translate(-' + position.x + ', -' + position.y + ')',
+      '-moz-transform': 'translate(-' + position.x + ', -' + position.y + ')',
+      transform: 'translate(-' + position.x + ', -' + position.y + ')'
+    });
+
+    // Resize a video, when it's loaded
+    vide.$video.on('canplaythrough.' + pluginName, function() {
+      vide.$video.css('visibility', 'visible');
+      vide.resize();
+      vide.$wrapper.css('background-image', 'none');
+    });
+
+    // Resize event is available only for 'window'
+    // Use another code solutions to detect DOM elements resizing
+    vide.$element.on('resize.' + pluginName, function() {
+      if (vide.settings.resizing) {
+        vide.resize();
+      }
+    });
+
+    // Append a video
+    vide.$wrapper.append(vide.$video);
   };
 
   /**
