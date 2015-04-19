@@ -33,7 +33,7 @@
     "jquery": "*"
   },
   "devDependencies": {
-    "qunit": "~1.17.1",
+    "qunit": "~1.18.0",
     "jquery": "jquery#^1.11.2",
     "jquery2": "jquery#^2.1.3"
   }
