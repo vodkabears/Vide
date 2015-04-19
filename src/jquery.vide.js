@@ -1,4 +1,4 @@
-(function(root, factory) {
+!(function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     define(['jquery'], factory);
   } else if (typeof exports === 'object') {
@@ -277,39 +277,41 @@
         '</video>');
     }
 
-    // Disable visibility, while loading
-    vide.$video.css('visibility', 'hidden');
+    vide.$video
 
-    // Set video properties
-    vide.$video.prop({
-      autoplay: vide.settings.autoplay,
-      loop: vide.settings.loop,
-      volume: vide.settings.volume,
-      muted: vide.settings.muted,
-      defaultMuted: vide.settings.muted,
-      playbackRate: vide.settings.playbackRate,
-      defaultPlaybackRate: vide.settings.playbackRate
-    });
+      // Set video properties
+      .prop({
+        autoplay: vide.settings.autoplay,
+        loop: vide.settings.loop,
+        volume: vide.settings.volume,
+        muted: vide.settings.muted,
+        defaultMuted: vide.settings.muted,
+        playbackRate: vide.settings.playbackRate,
+        defaultPlaybackRate: vide.settings.playbackRate
+      })
 
-    // Video alignment
-    vide.$video.css({
-      margin: 'auto',
-      position: 'absolute',
-      'z-index': -1,
-      top: position.y,
-      left: position.x,
-      '-webkit-transform': 'translate(-' + position.x + ', -' + position.y + ')',
-      '-ms-transform': 'translate(-' + position.x + ', -' + position.y + ')',
-      '-moz-transform': 'translate(-' + position.x + ', -' + position.y + ')',
-      transform: 'translate(-' + position.x + ', -' + position.y + ')'
-    });
+      // Video alignment
+      .css({
+        margin: 'auto',
+        position: 'absolute',
+        'z-index': -1,
+        top: position.y,
+        left: position.x,
+        '-webkit-transform': 'translate(-' + position.x + ', -' + position.y + ')',
+        '-ms-transform': 'translate(-' + position.x + ', -' + position.y + ')',
+        '-moz-transform': 'translate(-' + position.x + ', -' + position.y + ')',
+        transform: 'translate(-' + position.x + ', -' + position.y + ')',
 
-    // Resize a video, when it's loaded
-    vide.$video.on('canplaythrough.' + pluginName, function() {
-      vide.$video.css('visibility', 'visible');
-      vide.resize();
-      vide.$wrapper.css('background-image', 'none');
-    });
+        // Disable visibility, while loading
+        visibility: 'hidden'
+      })
+
+      // Resize a video, when it's loaded
+      .on('canplaythrough.' + pluginName, function() {
+        vide.$video.css('visibility', 'visible');
+        vide.resize();
+        vide.$wrapper.css('background-image', 'none');
+      });
 
     // Resize event is available only for 'window'
     // Use another code solutions to detect DOM elements resizing
