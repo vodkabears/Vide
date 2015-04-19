@@ -1,3 +1,10 @@
+### 0.3.3
+* Added Browserify support.
+* Removed the checking of User-Agent.
+* Fixed issues of the back/forward cache in Safari.
+* Updated Meteor integration.
+* Updated dependencies.
+
 ### 0.3.2
 * Added support of old FF versions.
 * Improved Safari playback fixes.
