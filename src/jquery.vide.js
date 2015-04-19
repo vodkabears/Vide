@@ -13,12 +13,14 @@
   /**
    * Name of the plugin
    * @private
+   * @type {String}
    */
   var pluginName = 'vide';
 
   /**
    * Default settings
    * @private
+   * @type {Object}
    */
   var defaults = {
     volume: 1,
