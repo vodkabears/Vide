@@ -1,23 +1,34 @@
 /*
- *  Vide - v0.3.2
+ *  Vide - v0.3.3
  *  Easy as hell jQuery plugin for video backgrounds.
  *  http://vodkabears.github.io/vide/
  *
  *  Made by Ilya Makarov
  *  Under MIT License
  */
-!(function($, window, document, navigator) {
+!(function(root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    define(['jquery'], factory);
+  } else if (typeof exports === 'object') {
+    factory(require('jquery'));
+  } else {
+    factory(root.jQuery);
+  }
+})(this, function($) {
+
   'use strict';
 
   /**
    * Name of the plugin
    * @private
+   * @type {String}
    */
   var pluginName = 'vide';
 
   /**
    * Default settings
    * @private
+   * @type {Object}
    */
   var defaults = {
     volume: 1,
@@ -29,18 +40,6 @@
     posterType: 'detect',
     resizing: true
   };
-
-  /**
-   * Is iOs?
-   * @private
-   */
-  var isIOS = /iPad|iPhone|iPod/i.test(navigator.userAgent);
-
-  /**
-   * Is Android?
-   * @private
-   */
-  var isAndroid = /Android/i.test(navigator.userAgent);
 
   /**
    * Parse a string with options
@@ -213,7 +212,7 @@
   Vide.prototype.init = function() {
     var vide = this;
     var position = parsePosition(vide.settings.position);
-    var sources;
+    var sources = '';
     var poster;
 
     // Set styles of a video wrapper
@@ -266,36 +265,32 @@
 
     vide.$element.prepend(vide.$wrapper);
 
-    if (!isIOS && !isAndroid) {
-      sources = '';
-
-      if (typeof vide.path === 'object') {
-        if (vide.path.mp4) {
-          sources += '<source src="' + vide.path.mp4 + '.mp4" type="video/mp4">';
-        }
-
-        if (vide.path.webm) {
-          sources += '<source src="' + vide.path.webm + '.webm" type="video/webm">';
-        }
-
-        if (vide.path.ogv) {
-          sources += '<source src="' + vide.path.ogv + '.ogv" type="video/ogv">';
-        }
-
-        vide.$video = $('<video>' + sources + '</video>');
-      } else {
-        vide.$video = $('<video>' +
-          '<source src="' + vide.path + '.mp4" type="video/mp4">' +
-          '<source src="' + vide.path + '.webm" type="video/webm">' +
-          '<source src="' + vide.path + '.ogv" type="video/ogg">' +
-          '</video>');
+    if (typeof vide.path === 'object') {
+      if (vide.path.mp4) {
+        sources += '<source src="' + vide.path.mp4 + '.mp4" type="video/mp4">';
       }
 
-      // Disable visibility, while loading
-      vide.$video.css('visibility', 'hidden');
+      if (vide.path.webm) {
+        sources += '<source src="' + vide.path.webm + '.webm" type="video/webm">';
+      }
+
+      if (vide.path.ogv) {
+        sources += '<source src="' + vide.path.ogv + '.ogv" type="video/ogv">';
+      }
+
+      vide.$video = $('<video>' + sources + '</video>');
+    } else {
+      vide.$video = $('<video>' +
+        '<source src="' + vide.path + '.mp4" type="video/mp4">' +
+        '<source src="' + vide.path + '.webm" type="video/webm">' +
+        '<source src="' + vide.path + '.ogv" type="video/ogg">' +
+        '</video>');
+    }
+
+    vide.$video
 
       // Set video properties
-      vide.$video.prop({
+      .prop({
         autoplay: vide.settings.autoplay,
         loop: vide.settings.loop,
         volume: vide.settings.volume,
@@ -303,13 +298,10 @@
         defaultMuted: vide.settings.muted,
         playbackRate: vide.settings.playbackRate,
         defaultPlaybackRate: vide.settings.playbackRate
-      });
-
-      // Append a video
-      vide.$wrapper.append(vide.$video);
+      })
 
       // Video alignment
-      vide.$video.css({
+      .css({
         margin: 'auto',
         position: 'absolute',
         'z-index': -1,
@@ -318,37 +310,38 @@
         '-webkit-transform': 'translate(-' + position.x + ', -' + position.y + ')',
         '-ms-transform': 'translate(-' + position.x + ', -' + position.y + ')',
         '-moz-transform': 'translate(-' + position.x + ', -' + position.y + ')',
-        transform: 'translate(-' + position.x + ', -' + position.y + ')'
-      });
+        transform: 'translate(-' + position.x + ', -' + position.y + ')',
+
+        // Disable visibility, while loading
+        visibility: 'hidden'
+      })
 
       // Resize a video, when it's loaded
-      vide.$video.on('canplaythrough.' + pluginName, function() {
+      .on('canplaythrough.' + pluginName, function() {
         vide.$video.css('visibility', 'visible');
-
-        // Force to play, important for Safari
-        vide.$video.prop('autoplay') && vide.$video[0].play();
-
         vide.resize();
         vide.$wrapper.css('background-image', 'none');
       });
 
-      // Resize event is available only for 'window'
-      // Use another code solutions to detect DOM elements resizing
-      vide.$element.on('resize.' + pluginName, function() {
-        if (vide.settings.resizing) {
-          vide.resize();
-        }
-      });
-    }
+    // Resize event is available only for 'window'
+    // Use another code solutions to detect DOM elements resizing
+    vide.$element.on('resize.' + pluginName, function() {
+      if (vide.settings.resizing) {
+        vide.resize();
+      }
+    });
+
+    // Append a video
+    vide.$wrapper.append(vide.$video);
   };
 
   /**
    * Get a video element
    * @public
-   * @returns {HTMLVideoElement|null}
+   * @returns {HTMLVideoElement}
    */
   Vide.prototype.getVideoObject = function() {
-    return this.$video ? this.$video[0] : null;
+    return this.$video[0];
   };
 
   /**
@@ -439,9 +432,10 @@
   };
 
   $(document).ready(function() {
+    var $window = $(window);
 
     // Window resize event listener
-    $(window).on('resize.' + pluginName, function() {
+    $window.on('resize.' + pluginName, function() {
       for (var len = $[pluginName].lookup.length, i = 0, instance; i < len; i++) {
         instance = $[pluginName].lookup[i];
 
@@ -449,6 +443,11 @@
           instance.resize();
         }
       }
+    });
+
+    // https://github.com/VodkaBears/Vide/issues/68
+    $window.on('unload.' + pluginName, function() {
+      return false;
     });
 
     // Auto initialization
@@ -463,4 +462,5 @@
       $element[pluginName](path, options);
     });
   });
-})(window.jQuery, window, document, navigator);
+
+});
