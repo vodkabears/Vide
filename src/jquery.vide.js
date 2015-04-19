@@ -330,10 +330,10 @@
   /**
    * Get a video element
    * @public
-   * @returns {HTMLVideoElement|null}
+   * @returns {HTMLVideoElement}
    */
   Vide.prototype.getVideoObject = function() {
-    return this.$video ? this.$video[0] : null;
+    return this.$video[0];
   };
 
   /**
