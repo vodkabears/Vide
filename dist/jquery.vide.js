@@ -1,5 +1,5 @@
 /*
- *  Vide - v0.3.3
+ *  Vide - v0.3.4
  *  Easy as hell jQuery plugin for video backgrounds.
  *  http://vodkabears.github.io/vide/
  *
@@ -21,16 +21,18 @@
   /**
    * Name of the plugin
    * @private
+   * @const
    * @type {String}
    */
-  var pluginName = 'vide';
+  var PLUGIN_NAME = 'vide';
 
   /**
    * Default settings
    * @private
+   * @const
    * @type {Object}
    */
-  var defaults = {
+  var DEFAULTS = {
     volume: 1,
     playbackRate: 1,
     muted: true,
@@ -199,7 +201,7 @@
       }
     }
 
-    this.settings = $.extend({}, defaults, options);
+    this.settings = $.extend({}, DEFAULTS, options);
     this.path = path;
 
     this.init();
@@ -317,7 +319,7 @@
       })
 
       // Resize a video, when it's loaded
-      .on('canplaythrough.' + pluginName, function() {
+      .on('canplaythrough.' + PLUGIN_NAME, function() {
         vide.$video.css('visibility', 'visible');
         vide.resize();
         vide.$wrapper.css('background-image', 'none');
@@ -325,7 +327,7 @@
 
     // Resize event is available only for 'window'
     // Use another code solutions to detect DOM elements resizing
-    vide.$element.on('resize.' + pluginName, function() {
+    vide.$element.on('resize.' + PLUGIN_NAME, function() {
       if (vide.settings.resizing) {
         vide.resize();
       }
@@ -383,14 +385,14 @@
    * @public
    */
   Vide.prototype.destroy = function() {
-    this.$element.off(pluginName);
+    this.$element.off(PLUGIN_NAME);
 
     if (this.$video) {
-      this.$video.off(pluginName);
+      this.$video.off(PLUGIN_NAME);
     }
 
-    delete $[pluginName].lookup[this.index];
-    this.$element.removeData(pluginName);
+    delete $[PLUGIN_NAME].lookup[this.index];
+    this.$element.removeData(PLUGIN_NAME);
     this.$wrapper.remove();
   };
 
@@ -399,7 +401,7 @@
    * @public
    * @type {Object}
    */
-  $[pluginName] = {
+  $[PLUGIN_NAME] = {
     lookup: []
   };
 
@@ -410,11 +412,11 @@
    * @returns {JQuery}
    * @constructor
    */
-  $.fn[pluginName] = function(path, options) {
+  $.fn[PLUGIN_NAME] = function(path, options) {
     var instance;
 
     this.each(function() {
-      instance = $.data(this, pluginName);
+      instance = $.data(this, PLUGIN_NAME);
 
       if (instance) {
 
@@ -424,8 +426,8 @@
 
       // Create the plugin instance
       instance = new Vide(this, path, options);
-      instance.index = $[pluginName].lookup.push(instance) - 1;
-      $.data(this, pluginName, instance);
+      instance.index = $[PLUGIN_NAME].lookup.push(instance) - 1;
+      $.data(this, PLUGIN_NAME, instance);
     });
 
     return this;
@@ -435,9 +437,9 @@
     var $window = $(window);
 
     // Window resize event listener
-    $window.on('resize.' + pluginName, function() {
-      for (var len = $[pluginName].lookup.length, i = 0, instance; i < len; i++) {
-        instance = $[pluginName].lookup[i];
+    $window.on('resize.' + PLUGIN_NAME, function() {
+      for (var len = $[PLUGIN_NAME].lookup.length, i = 0, instance; i < len; i++) {
+        instance = $[PLUGIN_NAME].lookup[i];
 
         if (instance && instance.settings.resizing) {
           instance.resize();
@@ -446,7 +448,7 @@
     });
 
     // https://github.com/VodkaBears/Vide/issues/68
-    $window.on('unload.' + pluginName, function() {
+    $window.on('unload.' + PLUGIN_NAME, function() {
       return false;
     });
 
@@ -454,12 +456,12 @@
     // Add 'data-vide-bg' attribute with a path to the video without extension
     // Also you can pass options throw the 'data-vide-options' attribute
     // 'data-vide-options' must be like 'muted: false, volume: 0.5'
-    $(document).find('[data-' + pluginName + '-bg]').each(function(i, element) {
+    $(document).find('[data-' + PLUGIN_NAME + '-bg]').each(function(i, element) {
       var $element = $(element);
-      var options = $element.data(pluginName + '-options');
-      var path = $element.data(pluginName + '-bg');
+      var options = $element.data(PLUGIN_NAME + '-options');
+      var path = $element.data(PLUGIN_NAME + '-bg');
 
-      $element[pluginName](path, options);
+      $element[PLUGIN_NAME](path, options);
     });
   });
 
