@@ -1,3 +1,8 @@
+### 0.3.4
+* Updated Meteor documentation.
+* Refactoring.
+* Updated dependencies.
+
 ### 0.3.3
 * Added Browserify support.
 * Removed the checking of User-Agent.
