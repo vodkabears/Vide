@@ -41,8 +41,8 @@
     "grunt-contrib-uglify": "^0.9.1",
     "grunt-exec": "^0.4.6",
     "grunt-githooks": "^0.3.1",
-    "grunt-jscs": "^1.6.0",
-    "spacejam": "^1.1.4"
+    "grunt-jscs": "^1.8.0",
+    "spacejam": "^1.2.0"
   },
   "scripts": {
     "start": "npm install && ./node_modules/.bin/bower install && ./node_modules/.bin/grunt githooks",
