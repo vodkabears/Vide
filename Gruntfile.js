@@ -42,7 +42,7 @@ module.exports = function(grunt) {
         src: 'src/**/*.js'
       },
       test: {
-        src: 'test/**/*.js'
+        src: ['test/**/*.js', 'libs/jquery-loader.js']
       },
       options: {
         jshintrc: '.jshintrc'
@@ -57,7 +57,7 @@ module.exports = function(grunt) {
         src: 'src/**/*.js'
       },
       test: {
-        src: 'test/**/*.js'
+        src: ['test/**/*.js', 'libs/jquery-loader.js']
       }
     },
 
