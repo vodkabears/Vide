@@ -20,7 +20,7 @@ meteor install vodkabears:vide
 ## Usage
 
 Prepare your video in several formats like '.webm', '.mp4' for cross browser
-compatability, also add a poster with `.jpg`, `.png` or `.gif` extension:
+compatibility, also add a poster with `.jpg`, `.png` or `.gif` extension:
 ```
 path/
 ├── to/
@@ -46,15 +46,15 @@ Meteor integration by [zimme](https://github.com/zimme).
 Below is a complete list of options and matching default values:
 
 ```js
-$("#yourElement").vide({
-    volume: 1,
-    playbackRate: 1,
-    muted: true,
-    loop: true,
-    autoplay: true,
-    position: "50% 50%", // Similar to the CSS `background-position` property.
-    posterType: "detect", // Poster image type. "detect" — auto-detection; "none" — no poster; "jpg", "png", "gif",... - extensions.
-    resizing: true // Auto-resizing, read: https://github.com/VodkaBears/Vide#resizing
+$('#yourElement').vide({
+  volume: 1,
+  playbackRate: 1,
+  muted: true,
+  loop: true,
+  autoplay: true,
+  position: '50% 50%', // Similar to the CSS `background-position` property.
+  posterType: 'detect', // Poster image type. "detect" — auto-detection; "none" — no poster; "jpg", "png", "gif",... - extensions.
+  resizing: true // Auto-resizing, read: https://github.com/VodkaBears/Vide#resizing
 });
 ```
 
@@ -64,7 +64,7 @@ Below is a complete list of methods:
 
 ```js
 // Get instance of the plugin
-var instance = $("#yourElement").data("vide");
+var instance = $('#yourElement').data('vide');
 
 // Get video element of the background. Do what you want.
 instance.getVideoObject();

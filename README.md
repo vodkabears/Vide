@@ -21,7 +21,7 @@ Download it from [GitHub](https://github.com/VodkaBears/Vide/releases/latest) or
 
 Include plugin: `<script src="js/jquery.vide.min.js"></script>`
 
-Prepare your video in several formats like '.webm', '.mp4' for cross browser compatability, also add a poster with `.jpg`, `.png` or `.gif` extension:
+Prepare your video in several formats like '.webm', '.mp4' for cross browser compatibility, also add a poster with `.jpg`, `.png` or `.gif` extension:
 ```
 path/
 ├── to/
@@ -34,32 +34,33 @@ path/
 Add `data-vide-bg` attribute with a path to the video and poster without extension, video and poster must have the same name. Add `data-vide-options` to pass vide options, if you need it. By default video is muted, looped and starts automatically.
 ```html
 <div style="width: 1000px; height: 500px;"
-    data-vide-bg="path/to/video" data-vide-options="loop: false, muted: false, position: 0% 0%">
+  data-vide-bg="path/to/video" data-vide-options="loop: false, muted: false, position: 0% 0%">
 </div>
 ```
 
 Also you can set extended path:
 ```html
 <div style="width: 1000px; height: 500px;"
-    data-vide-bg="mp4: path/to/video1, webm: path/to/video2, ogv: path/to/video3, poster: path/to/poster" data-vide-options="posterType: jpg, loop: false, muted: false, position: 0% 0%">
+  data-vide-bg="mp4: path/to/video1, webm: path/to/video2, ogv: path/to/video3, poster: path/to/poster"
+  data-vide-options="posterType: jpg, loop: false, muted: false, position: 0% 0%">
 </div>
 ```
 
 In some situations it can be helpful to initialize it with JS because Vide doesn't have mutation observers:
 ```js
-$("#myBlock").vide("path/to/video");
-$("#myBlock").vide("path/to/video", {
+$('#myBlock').vide('path/to/video');
+$('#myBlock').vide('path/to/video', {
 ...options...
 });
-$("#myBlock").vide({
-    mp4: path/to/video1,
-    webm: path/to/video2,
-    ogv: path/to/video3,
-    poster: path/to/poster
+$('#myBlock').vide({
+  mp4: path/to/video1,
+  webm: path/to/video2,
+  ogv: path/to/video3,
+  poster: path/to/poster
 }, {
 ...options...
 });
-$("#myBlock").vide("extended path as a string", "options as a string");
+$('#myBlock').vide('extended path as a string', 'options as a string');
 ```
 
 Easy as hell.
@@ -69,15 +70,15 @@ Easy as hell.
 Below is a complete list of options and matching default values:
 
 ```js
-$("#yourElement").vide({
-    volume: 1,
-    playbackRate: 1,
-    muted: true,
-    loop: true,
-    autoplay: true,
-    position: "50% 50%", // Similar to the CSS `background-position` property.
-    posterType: "detect", // Poster image type. "detect" — auto-detection; "none" — no poster; "jpg", "png", "gif",... - extensions.
-    resizing: true // Auto-resizing, read: https://github.com/VodkaBears/Vide#resizing
+$('#yourElement').vide({
+  volume: 1,
+  playbackRate: 1,
+  muted: true,
+  loop: true,
+  autoplay: true,
+  position: '50% 50%', // Similar to the CSS `background-position` property.
+  posterType: 'detect', // Poster image type. "detect" — auto-detection; "none" — no poster; "jpg", "png", "gif",... - extensions.
+  resizing: true // Auto-resizing, read: https://github.com/VodkaBears/Vide#resizing
 });
 ```
 
@@ -87,7 +88,7 @@ Below is a complete list of methods:
 
 ```js
 // Get instance of the plugin
-var instance = $("#yourElement").data("vide");
+var instance = $('#yourElement').data('vide');
 
 // Get video element of the background. Do what you want.
 instance.getVideoObject();
