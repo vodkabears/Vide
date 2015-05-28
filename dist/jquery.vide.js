@@ -1,5 +1,5 @@
 /*
- *  Vide - v0.3.4
+ *  Vide - v0.3.5
  *  Easy as hell jQuery plugin for video backgrounds.
  *  http://vodkabears.github.io/vide/
  *
@@ -319,9 +319,13 @@
       })
 
       // Resize a video, when it's loaded
-      .on('canplaythrough.' + PLUGIN_NAME, function() {
-        vide.$video.css('visibility', 'visible');
+      .one('canplaythrough.' + PLUGIN_NAME, function() {
         vide.resize();
+      })
+
+      // Make it visible, when it's already playing
+      .one('playing.' + PLUGIN_NAME, function() {
+        vide.$video.css('visibility', 'visible');
         vide.$wrapper.css('background-image', 'none');
       });
 
