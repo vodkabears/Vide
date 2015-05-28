@@ -1,3 +1,6 @@
+### 0.3.5
+* Fixed disappearing of the poster image in Android 5.
+
 ### 0.3.4
 * Updated Meteor documentation.
 * Refactoring.
