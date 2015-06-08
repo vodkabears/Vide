@@ -193,7 +193,7 @@
       return null;
     }
 
-    return [ propName, eventName ];
+    return [propName, eventName];
   }
 
   /**
