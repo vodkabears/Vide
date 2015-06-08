@@ -32,8 +32,12 @@
     autoplay: true,
     position: '50% 50%',
     posterType: 'detect',
-    resizing: true
+    resizing: true,
+    pauseWhenHidden: true
   };
+
+  /* browser dependant property name for document.hidden */
+  var hiddenPropertyName = null;
 
   /**
    * Parse a string with options
@@ -158,6 +162,51 @@
     $('<img src="' + path + '.jpg">').load(onLoad);
     $('<img src="' + path + '.jpeg">').load(onLoad);
     $('<img src="' + path + '.png">').load(onLoad);
+  }
+
+  /**
+   * Find if there's support for page visibility.
+   * @private
+   * @returns null on no support, array of two elements if supported such that:
+   *   [hidden property name, visibility change event name]
+   */
+  function detectVisibilitySupport() {
+    var prefixes = ['webkit', 'moz', 'ms', 'o'],
+        i,
+        propName = null, 
+        eventName = null;
+
+    if ( 'hidden' in document ) {
+      propName = 'hidden';
+      eventName = 'visibilitychange';
+    } else {
+      for ( i = 0; i < prefixes.length; i++ ) {
+        if ( prefixes[i] + 'Hidden' in document ) {
+          propName = prefixes[i] + 'Hidden';
+          eventName = prefixes[i] + 'visibilitychange';
+          break;
+        }
+      }
+    }
+
+    if ( !propName ) {
+      return null;
+    }
+
+    return [ propName, eventName ];
+  }
+
+  /**
+   * Play or pause video depending on the visibility state
+   * @private
+   * @param {Video} video
+   */
+  function handleVisibilityChange(video) {
+    if ( document[hiddenPropertyName] ) {
+      video.pause();
+    } else {
+      video.play();
+    }
   }
 
   /**
@@ -313,6 +362,18 @@
       // Resize a video, when it's loaded
       .one('canplaythrough.' + PLUGIN_NAME, function() {
         vide.resize();
+
+        if ( vide.settings.pauseWhenHidden ) {
+          var visibilitySupport = detectVisibilitySupport();
+
+          if ( visibilitySupport ) {
+            hiddenPropertyName = visibilitySupport[0];
+            
+            $(document).on( visibilitySupport[1], function() {
+              handleVisibilityChange( vide.$video[0] );
+            });
+          }
+        }
       })
 
       // Make it visible, when it's already playing
