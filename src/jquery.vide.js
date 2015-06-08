@@ -171,17 +171,17 @@
    *   [hidden property name, visibility change event name]
    */
   function detectVisibilitySupport() {
-    var prefixes = ['webkit', 'moz', 'ms', 'o'],
-        i,
-        propName = null, 
-        eventName = null;
+    var prefixes = ['webkit', 'moz', 'ms', 'o'];
+    var i;
+    var propName = null;
+    var eventName = null;
 
-    if ( 'hidden' in document ) {
+    if ('hidden' in document) {
       propName = 'hidden';
       eventName = 'visibilitychange';
     } else {
-      for ( i = 0; i < prefixes.length; i++ ) {
-        if ( prefixes[i] + 'Hidden' in document ) {
+      for (i = 0; i < prefixes.length; i++) {
+        if (prefixes[i] + 'Hidden' in document) {
           propName = prefixes[i] + 'Hidden';
           eventName = prefixes[i] + 'visibilitychange';
           break;
@@ -189,7 +189,7 @@
       }
     }
 
-    if ( !propName ) {
+    if (!propName) {
       return null;
     }
 
@@ -202,7 +202,7 @@
    * @param {Video} video
    */
   function handleVisibilityChange(video) {
-    if ( document[hiddenPropertyName] ) {
+    if (document[hiddenPropertyName]) {
       video.pause();
     } else {
       video.play();
@@ -363,14 +363,13 @@
       .one('canplaythrough.' + PLUGIN_NAME, function() {
         vide.resize();
 
-        if ( vide.settings.pauseWhenHidden ) {
+        if (vide.settings.pauseWhenHidden) {
           var visibilitySupport = detectVisibilitySupport();
 
-          if ( visibilitySupport ) {
+          if (visibilitySupport) {
             hiddenPropertyName = visibilitySupport[0];
-            
-            $(document).on( visibilitySupport[1], function() {
-              handleVisibilityChange( vide.$video[0] );
+            $(document).on(visibilitySupport[1], function() {
+              handleVisibilityChange(vide.$video[0]);
             });
           }
         }
