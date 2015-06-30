@@ -46,7 +46,7 @@ Meteor integration by [zimme](https://github.com/zimme).
 Below is a complete list of options and matching default values:
 
 ```js
-$('#yourElement').vide({
+{
   volume: 1,
   playbackRate: 1,
   muted: true,
@@ -55,7 +55,7 @@ $('#yourElement').vide({
   position: '50% 50%', // Similar to the CSS `background-position` property.
   posterType: 'detect', // Poster image type. "detect" — auto-detection; "none" — no poster; "jpg", "png", "gif",... - extensions.
   resizing: true // Auto-resizing, read: https://github.com/VodkaBears/Vide#resizing
-});
+}
 ```
 
 ## Methods
