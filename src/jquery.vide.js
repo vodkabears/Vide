@@ -280,19 +280,27 @@
         '<source src="' + vide.path + '.ogv" type="video/ogg">' +
         '</video>');
     }
+    
+    try {
 
-    vide.$video
-
-      // Set video properties
-      .prop({
-        autoplay: vide.settings.autoplay,
-        loop: vide.settings.loop,
-        volume: vide.settings.volume,
-        muted: vide.settings.muted,
-        defaultMuted: vide.settings.muted,
-        playbackRate: vide.settings.playbackRate,
-        defaultPlaybackRate: vide.settings.playbackRate
-      })
+      vide.$video
+  
+        // Set video properties
+        .prop({
+          autoplay: vide.settings.autoplay,
+          loop: vide.settings.loop,
+          volume: vide.settings.volume,
+          muted: vide.settings.muted,
+          defaultMuted: vide.settings.muted,
+          playbackRate: vide.settings.playbackRate,
+          defaultPlaybackRate: vide.settings.playbackRate
+        });
+      
+    } catch(e) {
+      // IE Error: Windows Media Player not installed
+    }
+      
+      vide.$video
 
       // Video alignment
       .css({
