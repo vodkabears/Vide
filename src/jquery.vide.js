@@ -269,7 +269,7 @@
       }
 
       if (vide.path.ogv) {
-        sources += '<source src="' + vide.path.ogv + '.ogv" type="video/ogv">';
+        sources += '<source src="' + vide.path.ogv + '.ogv" type="video/ogg">';
       }
 
       vide.$video = $('<video>' + sources + '</video>');
