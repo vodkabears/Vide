@@ -1,5 +1,5 @@
 /*
- *  Vide - v0.3.5
+ *  Vide - v0.3.6
  *  Easy as hell jQuery plugin for video backgrounds.
  *  http://vodkabears.github.io/vide/
  *
@@ -277,7 +277,7 @@
       }
 
       if (vide.path.ogv) {
-        sources += '<source src="' + vide.path.ogv + '.ogv" type="video/ogv">';
+        sources += '<source src="' + vide.path.ogv + '.ogv" type="video/ogg">';
       }
 
       vide.$video = $('<video>' + sources + '</video>');

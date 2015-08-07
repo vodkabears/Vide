@@ -3,7 +3,7 @@ Package.describe({
   git: 'https://github.com/VodkaBears/Vide.git',
   name: 'vodkabears:vide',
   summary: 'Easy as hell jQuery plugin for video backgrounds',
-  version: '0.3.5'
+  version: '0.3.6'
 });
 
 Package.onUse(function(api) {
