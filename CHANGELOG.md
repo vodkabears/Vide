@@ -1,3 +1,10 @@
+### 0.3.6
+* Rename 'video/ogv' type to 'video/ogg'.
+* Correct the docs.
+* Remove moot `version` property from bower.json.
+* Update linter configs.
+* Update dependencies.
+
 ### 0.3.5
 * Fixed disappearing of the poster image in Android 5.
 
