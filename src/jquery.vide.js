@@ -196,7 +196,14 @@
     this.settings = $.extend({}, DEFAULTS, options);
     this.path = path;
 
-    this.init();
+    // https://github.com/VodkaBears/Vide/issues/110
+    try {
+      this.init();
+    } catch (e) {
+      if (e.message !== 'Not implemented') {
+        throw e;
+      }
+    }
   }
 
   /**
@@ -281,21 +288,26 @@
         '</video>');
     }
 
-    vide.$video
+    // https://github.com/VodkaBears/Vide/issues/110
+    try {
+      vide.$video
 
-      // Set video properties
-      .prop({
-        autoplay: vide.settings.autoplay,
-        loop: vide.settings.loop,
-        volume: vide.settings.volume,
-        muted: vide.settings.muted,
-        defaultMuted: vide.settings.muted,
-        playbackRate: vide.settings.playbackRate,
-        defaultPlaybackRate: vide.settings.playbackRate
-      })
+        // Set video properties
+        .prop({
+          autoplay: vide.settings.autoplay,
+          loop: vide.settings.loop,
+          volume: vide.settings.volume,
+          muted: vide.settings.muted,
+          defaultMuted: vide.settings.muted,
+          playbackRate: vide.settings.playbackRate,
+          defaultPlaybackRate: vide.settings.playbackRate
+        });
+    } catch (e) {
+      throw new Error('Not implemented');
+    }
 
-      // Video alignment
-      .css({
+    // Video alignment
+    vide.$video.css({
         margin: 'auto',
         position: 'absolute',
         'z-index': -1,
