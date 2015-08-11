@@ -1,3 +1,7 @@
+### 0.3.7
+* Fix the 'Not implemented' error in IE.
+* Make a small refactoring.
+
 ### 0.3.6
 * Rename 'video/ogv' type to 'video/ogg'.
 * Correct the docs.
