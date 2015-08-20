@@ -116,7 +116,7 @@ http://diveintohtml5.info/video.html#miro
 ### Install
 
 ```sh
-meteor install vodkabears:vide
+meteor add vodkabears:vide
 ```
 
 ### Usage
