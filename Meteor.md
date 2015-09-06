@@ -14,7 +14,7 @@ disabled, only fullscreen poster will be used.
 ## Install
 
 ```sh
-meteor install vodkabears:vide
+meteor add vodkabears:vide
 ```
 
 ## Usage
