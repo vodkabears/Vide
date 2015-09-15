@@ -78,7 +78,8 @@ Below is a complete list of options and matching default values:
   autoplay: true,
   position: '50% 50%', // Similar to the CSS `background-position` property.
   posterType: 'detect', // Poster image type. "detect" — auto-detection; "none" — no poster; "jpg", "png", "gif",... - extensions.
-  resizing: true // Auto-resizing, read: https://github.com/VodkaBears/Vide#resizing
+  resizing: true, // Auto-resizing, read: https://github.com/VodkaBears/Vide#resizing
+  backgroundColor: 'transparent' // Allow custom background-color for Vide div
 }
 ```
 
