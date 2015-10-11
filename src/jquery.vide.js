@@ -32,7 +32,8 @@
     autoplay: true,
     position: '50% 50%',
     posterType: 'detect',
-    resizing: true
+    resizing: true,
+    backgroundColor: 'transparent'
   };
 
   /**
@@ -227,6 +228,7 @@
     var settings = vide.settings;
     var position = parsePosition(settings.position);
     var posterType = settings.posterType;
+    var backgroundColor = settings.backgroundColor;
     var $video;
     var $wrapper;
 
@@ -261,6 +263,9 @@
         }
       }
     }
+
+    // Set a background color
+    $wrapper.css('background-color', backgroundColor);
 
     // Set a video poster
     if (posterType === 'detect') {
@@ -331,7 +336,8 @@
       transform: 'translate(-' + position.x + ', -' + position.y + ')',
 
       // Disable visibility, while loading
-      visibility: 'hidden'
+      visibility: 'hidden',
+      opacity: 0
     })
 
     // Resize a video, when it's loaded
@@ -342,6 +348,7 @@
     // Make it visible, when it's already playing
     .one('playing.' + PLUGIN_NAME, function() {
       $video.css('visibility', 'visible');
+      $video.css('opacity', '1');
       $wrapper.css('background-image', 'none');
     });
 

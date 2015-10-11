@@ -66,6 +66,7 @@
     strictEqual(inst.settings.position, '50% 50%');
     strictEqual(inst.settings.posterType, 'detect');
     strictEqual(inst.settings.resizing, true);
+    strictEqual(inst.settings.backgroundColor, 'transparent');
   });
 
   QUnit.test('Parsing of the path', function() {
