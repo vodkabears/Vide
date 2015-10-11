@@ -228,7 +228,6 @@
     var settings = vide.settings;
     var position = parsePosition(settings.position);
     var posterType = settings.posterType;
-    var bgColor = settings.bgColor;
     var $video;
     var $wrapper;
 
@@ -245,6 +244,7 @@
       '-moz-background-size': 'cover',
       '-o-background-size': 'cover',
       'background-size': 'cover',
+      'background-color': settings.bgColor,
       'background-repeat': 'no-repeat',
       'background-position': position.x + ' ' + position.y
     });
@@ -263,9 +263,6 @@
         }
       }
     }
-
-    // Set a background color
-    $wrapper.css('background-color', bgColor);
 
     // Set a video poster
     if (posterType === 'detect') {
@@ -347,8 +344,10 @@
 
     // Make it visible, when it's already playing
     .one('playing.' + PLUGIN_NAME, function() {
-      $video.css('visibility', 'visible');
-      $video.css('opacity', '1');
+      $video.css({
+        visibility: 'hidden',
+        opacity: 1
+      });
       $wrapper.css('background-image', 'none');
     });
 
