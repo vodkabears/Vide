@@ -1,5 +1,5 @@
 /*
- *  Vide - v0.3.7
+ *  Vide - v0.4.0
  *  Easy as hell jQuery plugin for video backgrounds.
  *  http://vodkabears.github.io/vide/
  *
@@ -40,7 +40,8 @@
     autoplay: true,
     position: '50% 50%',
     posterType: 'detect',
-    resizing: true
+    resizing: true,
+    bgColor: 'transparent'
   };
 
   /**
@@ -251,6 +252,7 @@
       '-moz-background-size': 'cover',
       '-o-background-size': 'cover',
       'background-size': 'cover',
+      'background-color': settings.bgColor,
       'background-repeat': 'no-repeat',
       'background-position': position.x + ' ' + position.y
     });
@@ -339,7 +341,8 @@
       transform: 'translate(-' + position.x + ', -' + position.y + ')',
 
       // Disable visibility, while loading
-      visibility: 'hidden'
+      visibility: 'hidden',
+      opacity: 0
     })
 
     // Resize a video, when it's loaded
@@ -349,7 +352,10 @@
 
     // Make it visible, when it's already playing
     .one('playing.' + PLUGIN_NAME, function() {
-      $video.css('visibility', 'visible');
+      $video.css({
+        visibility: 'hidden',
+        opacity: 1
+      });
       $wrapper.css('background-image', 'none');
     });
 

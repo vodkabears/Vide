@@ -1,3 +1,8 @@
+### 0.4.0
+* Add `bgColor` property.
+* Fix a blurred circle on IOS9.
+* Update dependencies.
+
 ### 0.3.7
 * Fix the 'Not implemented' error in IE.
 * Make a small refactoring.
