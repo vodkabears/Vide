@@ -1,7 +1,6 @@
 [![NPM version](https://img.shields.io/npm/v/vide.svg?style=flat)](https://npmjs.org/package/vide)
 [![Bower version](https://badge.fury.io/bo/vide.svg)](http://badge.fury.io/bo/vide)
 [![Travis](https://travis-ci.org/VodkaBears/Vide.svg?branch=master)](https://travis-ci.org/VodkaBears/Vide)
-[![devDependency Status](https://david-dm.org/vodkabears/vide/dev-status.svg)](https://david-dm.org/vodkabears/vide#info=devDependencies)
 Vide
 ====
 
