@@ -46,6 +46,7 @@
   },
   "scripts": {
     "start": "npm install && ./node_modules/.bin/bower install && ./node_modules/.bin/grunt githooks",
-    "test": "./node_modules/.bin/grunt test"
+    "test": "./node_modules/.bin/grunt test",
+    "dist": "./node_modules/.bin/grunt"
   }
 }
