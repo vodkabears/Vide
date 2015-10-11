@@ -33,7 +33,7 @@
     position: '50% 50%',
     posterType: 'detect',
     resizing: true,
-    backgroundColor: 'transparent'
+    bgColor: 'transparent'
   };
 
   /**
@@ -228,7 +228,7 @@
     var settings = vide.settings;
     var position = parsePosition(settings.position);
     var posterType = settings.posterType;
-    var backgroundColor = settings.backgroundColor;
+    var bgColor = settings.bgColor;
     var $video;
     var $wrapper;
 
@@ -265,7 +265,7 @@
     }
 
     // Set a background color
-    $wrapper.css('background-color', backgroundColor);
+    $wrapper.css('background-color', bgColor);
 
     // Set a video poster
     if (posterType === 'detect') {
