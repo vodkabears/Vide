@@ -345,7 +345,7 @@
     // Make it visible, when it's already playing
     .one('playing.' + PLUGIN_NAME, function() {
       $video.css({
-        visibility: 'hidden',
+        visibility: 'visible',
         opacity: 1
       });
       $wrapper.css('background-image', 'none');
