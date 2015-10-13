@@ -1,3 +1,6 @@
+### 0.4.1
+* Fix hidden video.
+
 ### 0.4.0
 * Add `bgColor` property.
 * Fix a blurred circle on IOS9.

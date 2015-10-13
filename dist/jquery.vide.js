@@ -1,5 +1,5 @@
 /*
- *  Vide - v0.4.0
+ *  Vide - v0.4.1
  *  Easy as hell jQuery plugin for video backgrounds.
  *  http://vodkabears.github.io/vide/
  *
@@ -353,7 +353,7 @@
     // Make it visible, when it's already playing
     .one('playing.' + PLUGIN_NAME, function() {
       $video.css({
-        visibility: 'hidden',
+        visibility: 'visible',
         opacity: 1
       });
       $wrapper.css('background-image', 'none');
