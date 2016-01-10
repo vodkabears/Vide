@@ -196,7 +196,7 @@
       path = path.replace(/\.\w*$/, '');
     } else if (typeof path === 'object') {
       for (var i in path) {
-        if (path.hasOwnProperty(i)) {
+        if (path.hasOwnProperty(i) && path[i] > 0) {
           path[i] = path[i].replace(/\.\w*$/, '');
         }
       }
