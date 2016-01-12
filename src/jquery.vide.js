@@ -232,22 +232,24 @@
     var $wrapper;
 
     // Set styles of a video wrapper
-    $wrapper = vide.$wrapper = $('<div>').css({
-      position: 'absolute',
-      'z-index': -1,
-      top: 0,
-      left: 0,
-      bottom: 0,
-      right: 0,
-      overflow: 'hidden',
-      '-webkit-background-size': 'cover',
-      '-moz-background-size': 'cover',
-      '-o-background-size': 'cover',
-      'background-size': 'cover',
-      'background-color': settings.bgColor,
-      'background-repeat': 'no-repeat',
-      'background-position': position.x + ' ' + position.y
-    });
+    $wrapper = vide.$wrapper = $('<div>')
+      .addClass('vide-wrapper')
+      .css({
+        position: 'absolute',
+        'z-index': -1,
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0,
+        overflow: 'hidden',
+        '-webkit-background-size': 'cover',
+        '-moz-background-size': 'cover',
+        '-o-background-size': 'cover',
+        'background-size': 'cover',
+        'background-color': settings.bgColor,
+        'background-repeat': 'no-repeat',
+        'background-position': position.x + ' ' + position.y
+      });
 
     // Get a poster path
     if (typeof path === 'object') {
