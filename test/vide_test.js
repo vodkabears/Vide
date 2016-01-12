@@ -91,7 +91,7 @@
     strictEqual(inst.settings.volume, 0.3);
     strictEqual(inst.settings.playbackRate, 1);
     strictEqual(inst.settings.position, '60%    bottom');
-    strictEqual(inst.settings.position, 'vide-wrapper');
+    strictEqual(inst.settings.className, 'vide-wrapper');
 
     strictEqual(video.loop, false);
     strictEqual(video.volume, 0.3);
