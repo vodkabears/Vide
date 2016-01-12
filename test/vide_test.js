@@ -67,22 +67,7 @@
     strictEqual(inst.settings.posterType, 'detect');
     strictEqual(inst.settings.resizing, true);
     strictEqual(inst.settings.bgColor, 'transparent');
-  });
-
-  QUnit.test('Wrapper class', function() {
-    var $wrapper1 = $block1.data('vide').$wrapper;
-    var $wrapper2 = $block2.data('vide').$wrapper;
-    var $wrapper3 = $block3.data('vide').$wrapper;
-    var $wrapper4 = $block4.data('vide').$wrapper;
-    var $wrapper5 = $block5.data('vide').$wrapper;
-    var $wrapper6 = $block6.data('vide').$wrapper;
-
-    ok($wrapper1.hasClass('vide-wrapper'));
-    ok($wrapper2.hasClass('vide-wrapper'));
-    ok($wrapper3.hasClass('vide-wrapper'));
-    ok($wrapper4.hasClass('vide-wrapper'));
-    ok($wrapper5.hasClass('vide-wrapper'));
-    ok($wrapper6.hasClass('vide-wrapper'));
+    strictEqual(inst.settings.className, '');
   });
 
   QUnit.test('Parsing of the path', function() {
@@ -106,12 +91,14 @@
     strictEqual(inst.settings.volume, 0.3);
     strictEqual(inst.settings.playbackRate, 1);
     strictEqual(inst.settings.position, '60%    bottom');
+    strictEqual(inst.settings.position, 'vide-wrapper');
 
     strictEqual(video.loop, false);
     strictEqual(video.volume, 0.3);
     strictEqual(video.playbackRate, 1);
     strictEqual(video.style.left, '60%');
     strictEqual(video.style.top, '100%');
+    ok(inst.$wrapper.hasClass('vide-wrapper'));
   });
 
   QUnit.test('Passing JSON with the data attribute', function() {
