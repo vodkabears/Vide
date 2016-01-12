@@ -69,6 +69,22 @@
     strictEqual(inst.settings.bgColor, 'transparent');
   });
 
+  QUnit.test('Wrapper class', function() {
+    var $wrapper1 = $block1.data('vide').$wrapper;
+    var $wrapper2 = $block2.data('vide').$wrapper;
+    var $wrapper3 = $block3.data('vide').$wrapper;
+    var $wrapper4 = $block4.data('vide').$wrapper;
+    var $wrapper5 = $block5.data('vide').$wrapper;
+    var $wrapper6 = $block6.data('vide').$wrapper;
+
+    ok($wrapper1.hasClass('vide-wrapper'));
+    ok($wrapper2.hasClass('vide-wrapper'));
+    ok($wrapper3.hasClass('vide-wrapper'));
+    ok($wrapper4.hasClass('vide-wrapper'));
+    ok($wrapper5.hasClass('vide-wrapper'));
+    ok($wrapper6.hasClass('vide-wrapper'));
+  });
+
   QUnit.test('Parsing of the path', function() {
     strictEqual($block1.data('vide').path, $block1.data('vide-bg'));
   });
