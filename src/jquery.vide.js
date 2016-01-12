@@ -33,7 +33,8 @@
     position: '50% 50%',
     posterType: 'detect',
     resizing: true,
-    bgColor: 'transparent'
+    bgColor: 'transparent',
+    className: ''
   };
 
   /**
@@ -233,7 +234,7 @@
 
     // Set styles of a video wrapper
     $wrapper = vide.$wrapper = $('<div>')
-      .addClass('vide-wrapper')
+      .addClass(this.settings.className)
       .css({
         position: 'absolute',
         'z-index': -1,
