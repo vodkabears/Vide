@@ -67,6 +67,7 @@
     strictEqual(inst.settings.posterType, 'detect');
     strictEqual(inst.settings.resizing, true);
     strictEqual(inst.settings.bgColor, 'transparent');
+    strictEqual(inst.settings.className, '');
   });
 
   QUnit.test('Parsing of the path', function() {
@@ -90,12 +91,14 @@
     strictEqual(inst.settings.volume, 0.3);
     strictEqual(inst.settings.playbackRate, 1);
     strictEqual(inst.settings.position, '60%    bottom');
+    strictEqual(inst.settings.className, 'vide-wrapper');
 
     strictEqual(video.loop, false);
     strictEqual(video.volume, 0.3);
     strictEqual(video.playbackRate, 1);
     strictEqual(video.style.left, '60%');
     strictEqual(video.style.top, '100%');
+    ok(inst.$wrapper.hasClass('vide-wrapper'));
   });
 
   QUnit.test('Passing JSON with the data attribute', function() {
