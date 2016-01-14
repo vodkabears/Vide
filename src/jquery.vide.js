@@ -234,7 +234,7 @@
 
     // Set styles of a video wrapper
     $wrapper = vide.$wrapper = $('<div>')
-      .addClass(this.settings.className)
+      .addClass(settings.className)
       .css({
         position: 'absolute',
         'z-index': -1,
