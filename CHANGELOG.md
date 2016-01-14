@@ -1,3 +1,6 @@
+### 0.5.0
+* Add the `className` option.
+
 ### 0.4.1
 * Fix hidden video.
 
