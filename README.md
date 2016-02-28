@@ -92,6 +92,7 @@ Below is a complete list of methods:
 var instance = $('#yourElement').data('vide');
 
 // Get video element of the background. Do what you want.
+// You'll need to initialize vide via JS for this to work.
 instance.getVideoObject();
 
 // Resize video background.
