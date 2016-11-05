@@ -1,5 +1,5 @@
 /*
- *  Vide - v0.5.0
+ *  Vide - v0.5.1
  *  Easy as hell jQuery plugin for video backgrounds.
  *  http://vodkabears.github.io/vide/
  *
@@ -172,10 +172,10 @@
       callback(this.src);
     };
 
-    $('<img src="' + path + '.gif">').load(onLoad);
-    $('<img src="' + path + '.jpg">').load(onLoad);
-    $('<img src="' + path + '.jpeg">').load(onLoad);
-    $('<img src="' + path + '.png">').load(onLoad);
+    $('<img src="' + path + '.gif">').on('load', onLoad);
+    $('<img src="' + path + '.jpg">').on('load', onLoad);
+    $('<img src="' + path + '.jpeg">').on('load', onLoad);
+    $('<img src="' + path + '.png">').on('load', onLoad);
   }
 
   /**

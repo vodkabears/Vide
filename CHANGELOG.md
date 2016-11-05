@@ -1,3 +1,6 @@
+### 0.5.1
+* Remove deprecated jQuery load method.
+
 ### 0.5.0
 * Add the `className` option.
 
