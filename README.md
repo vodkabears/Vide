@@ -4,6 +4,8 @@
 Vide
 ====
 
+**No longer actively maintained. I am not interested to maintain jQuery plugins anymore. If you have some fixes, feel free to make PR.**
+
 Easy as hell jQuery plugin for video backgrounds.
 
 ## Notes
