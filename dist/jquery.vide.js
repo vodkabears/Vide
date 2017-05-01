@@ -269,8 +269,6 @@
           poster = path.mp4;
         } else if (path.webm) {
           poster = path.webm;
-        } else if (path.ogv) {
-          poster = path.ogv;
         }
       }
     }
@@ -292,24 +290,17 @@
     $element.prepend($wrapper);
 
     if (typeof path === 'object') {
-      if (path.mp4) {
-        sources += '<source src="' + path.mp4 + '.mp4" type="video/mp4">';
-      }
-
       if (path.webm) {
         sources += '<source src="' + path.webm + '.webm" type="video/webm">';
       }
-
-      if (path.ogv) {
-        sources += '<source src="' + path.ogv + '.ogv" type="video/ogg">';
+      if (path.mp4) {
+        sources += '<source src="' + path.mp4 + '.mp4" type="video/mp4">';
       }
-
       $video = vide.$video = $('<video>' + sources + '</video>');
     } else {
       $video = vide.$video = $('<video>' +
-        '<source src="' + path + '.mp4" type="video/mp4">' +
         '<source src="' + path + '.webm" type="video/webm">' +
-        '<source src="' + path + '.ogv" type="video/ogg">' +
+        '<source src="' + path + '.mp4" type="video/mp4">' +
         '</video>');
     }
 
