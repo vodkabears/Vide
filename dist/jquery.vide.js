@@ -179,19 +179,29 @@
   }
 
   /**
-   * Search a poster
+   * Add extension if not in path
    * @private
    * @param {String} path
    * @param {String} extension '.mp4'
-   * @returns {Object}
+   * @returns {String}
    */
   function addExtensionIfNotInPath(path, extension) {
 
-    if (!path.indexOf(extension)) {
+    if (path.indexOf(extension) === -1) {
       path = path + extension;
     }
 
     return path;
+  }
+
+  /**
+   * Remove extension in path
+   * @private
+   * @param {String} path
+   * @returns {String}
+   */
+  function removeExtension(path) {
+    return path.replace(/\.\w*$/, '');
   }
 
   /**
@@ -218,11 +228,11 @@
 
     // Remove an extension
     if (typeof path === 'string') {
-      path = path.replace(/\.\w*$/, '');
+      path = removeExtension(path);
     } else if (typeof path === 'object') {
       for (var i in path) {
         if (path.hasOwnProperty(i) && i === 'poster') {
-          path[i] = path[i].replace(/\.\w*$/, '');
+          path[i] = removeExtension(path[i]);
         }
       }
     }
@@ -282,11 +292,11 @@
         poster = path.poster;
       } else {
         if (path.mp4) {
-          poster = path.mp4;
+          poster = removeExtension(path.mp4);
         } else if (path.webm) {
-          poster = path.webm;
+          poster = removeExtension(path.webm);
         } else if (path.ogv) {
-          poster = path.ogv;
+          poster = removeExtension(path.ogv);
         }
       }
     }

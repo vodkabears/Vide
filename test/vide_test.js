@@ -164,11 +164,20 @@
   });
 
   QUnit.test('Path extension detection', function() {
-    var inst = $block7.data('vide');
-    var $wrapper = inst.$wrapper;
+    var inst4 = $block4.data('vide');
+    var $wrapper4 = inst4.$wrapper;
+    var inst7 = $block7.data('vide');
+    var $wrapper7 = inst7.$wrapper;
 
-    strictEqual(inst.path.mp4, 'video/ocean.mp4?ts=12345678');
-    strictEqual($wrapper.find('source').attr('src'), inst.path.mp4);
+    // Test without extention
+    strictEqual(inst4.path.mp4, 'http://vodkabears.github.io/vide/video/ocean');
+    strictEqual($wrapper4.find('source').filter(function() {
+      return $(this).attr('type') === 'video/mp4';
+    }).attr('src'), inst4.path.mp4 + '.mp4');
+
+    // Test with extention
+    strictEqual(inst7.path.mp4, 'video/ocean.mp4?ts=12345678');
+    strictEqual($wrapper7.find('source').attr('src'), inst7.path.mp4);
   });
 
   QUnit.test('Re-initialization', function() {
