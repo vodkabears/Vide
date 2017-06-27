@@ -26,6 +26,7 @@
   var $block4;
   var $block5;
   var $block6;
+  var $block7;
 
   QUnit.begin(function() {
     $block1 = $('#block1');
@@ -34,6 +35,7 @@
     $block4 = $('#block4');
     $block5 = $('#block5');
     $block6 = $('#block6');
+    $block7 = $('#block7');
   });
 
   QUnit.test('Initialization', function() {
@@ -53,6 +55,7 @@
     ok($block4.data('vide'));
     ok($block5.data('vide'));
     ok($block6.data('vide'));
+    ok($block7.data('vide'));
   });
 
   QUnit.test('Default settings', function() {
@@ -77,7 +80,7 @@
   QUnit.test('Parsing of the path with multiple names', function() {
     deepEqual($block3.data('vide').path, {
       mp4: 'http://vodkabears.github.io/vide/video/ocean',
-      webm: 'video/ocean',
+      webm: 'video/ocean.webm',
       ogv: 'http://vodkabears.github.io:80/vide/video/ocean',
       poster: 'video/ocean'
     });
@@ -106,8 +109,8 @@
 
     deepEqual(inst.path, {
       mp4: 'http://vodkabears.github.io/vide/video/ocean',
-      webm: 'video/ocean',
-      ogv: 'http://vodkabears.github.io:80/vide/video/ocean',
+      webm: 'video/ocean.webm',
+      ogv: 'http://vodkabears.github.io:80/vide/video/ocean.ogv',
       poster: 'video/ocean'
     });
 
@@ -120,7 +123,7 @@
 
     deepEqual(inst.path, {
       mp4: 'video/ocean',
-      webm: 'video/ocean',
+      webm: 'video/ocean.webm',
       ogv: 'video/ocean',
       poster: 'video/ocean'
     });
@@ -160,6 +163,14 @@
     strictEqual($wrapper.css('background-position'), video.style.left + ' ' + video.style.top);
   });
 
+  QUnit.test('Path extension detection', function() {
+    var inst = $block7.data('vide');
+    var $wrapper = inst.$wrapper;
+
+    strictEqual(inst.path.mp4, 'video/ocean.mp4?ts=12345678');
+    strictEqual($wrapper.find('source').attr('src'), inst.path.mp4);
+  });
+
   QUnit.test('Re-initialization', function() {
     $block1.vide('video/ocean');
     $block2.vide('video/ocean');
@@ -177,7 +188,8 @@
     ok($block4.data('vide'));
     ok($block5.data('vide'));
     ok($block6.data('vide'));
-    equal(count, 6);
+    ok($block7.data('vide'));
+    equal(count, 7);
   });
 
   QUnit.test('getVideoObject() method', function() {
@@ -187,6 +199,7 @@
     ok($block4.data('vide').getVideoObject());
     ok($block5.data('vide').getVideoObject());
     ok($block6.data('vide').getVideoObject());
+    ok($block7.data('vide').getVideoObject());
   });
 
   QUnit.test('resize() method', function() {
@@ -217,6 +230,7 @@
     $block4.data('vide').destroy();
     $block5.data('vide').destroy();
     $block6.data('vide').destroy();
+    $block7.data('vide').destroy();
 
     var count = $.vide.lookup.filter(function(value) {
       return value !== undefined;
@@ -229,6 +243,7 @@
     strictEqual($block4.find('video').length, 0);
     strictEqual($block5.find('video').length, 0);
     strictEqual($block6.find('video').length, 0);
+    strictEqual($block7.find('video').length, 0);
   });
 
 }(window.jQuery));
