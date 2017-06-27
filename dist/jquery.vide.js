@@ -179,6 +179,22 @@
   }
 
   /**
+   * Search a poster
+   * @private
+   * @param {String} path
+   * @param {String} extension '.mp4'
+   * @returns {Object}
+   */
+  function addExtensionIfNotInPath(path, extension) {
+
+    if (!path.indexOf(extension)) {
+      path = path + extension;
+    }
+
+    return path;
+  }
+
+  /**
    * Vide constructor
    * @param {HTMLElement} element
    * @param {Object|String} path
@@ -205,7 +221,7 @@
       path = path.replace(/\.\w*$/, '');
     } else if (typeof path === 'object') {
       for (var i in path) {
-        if (path.hasOwnProperty(i)) {
+        if (path.hasOwnProperty(i) && i === 'poster') {
           path[i] = path[i].replace(/\.\w*$/, '');
         }
       }
@@ -293,15 +309,15 @@
 
     if (typeof path === 'object') {
       if (path.mp4) {
-        sources += '<source src="' + path.mp4 + '.mp4" type="video/mp4">';
+        sources += '<source src="' + addExtensionIfNotInPath(path.mp4, '.mp4') + '" type="video/mp4">';
       }
 
       if (path.webm) {
-        sources += '<source src="' + path.webm + '.webm" type="video/webm">';
+        sources += '<source src="' + addExtensionIfNotInPath(path.webm, '.webm') + '" type="video/webm">';
       }
 
       if (path.ogv) {
-        sources += '<source src="' + path.ogv + '.ogv" type="video/ogg">';
+        sources += '<source src="' + addExtensionIfNotInPath(path.ogv, '.ogv') + '" type="video/ogg">';
       }
 
       $video = vide.$video = $('<video>' + sources + '</video>');
