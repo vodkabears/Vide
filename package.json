@@ -24,7 +24,7 @@
     "email": "dfrost.00@gmail.com",
     "url": "https://github.com/VodkaBears"
   },
-  "homepage": "http://vodkabears.github.io/vide/",
+  "homepage": "https://vodkabears.github.io/vide/",
   "license": "MIT",
   "main": "dist/jquery.vide.js",
   "dependencies": {
